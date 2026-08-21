@@ -1,0 +1,115 @@
+/* =========================================================================
+   Blog — índice e páginas de artigo.
+   Carregado só nas páginas de /blog/. Usa as mesmas camadas de site.css.
+   ========================================================================= */
+
+@layer secoes {
+
+  /* A primeira seção depois do topo não precisa do respiro cheio. */
+  .secao-primeira { padding-top: clamp(2.5rem, 6vw, 5rem); }
+
+  /* ---------------------- filtros do índice ---------------------- */
+  /* Sem JavaScript não há o que filtrar: a lista já vem completa. */
+  .filtros { display: none; }
+  .js .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .625rem;
+    margin-bottom: var(--e-5);
+  }
+  .filtro {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    min-height: 44px;
+    padding: .5rem 1.125rem;
+    background: transparent;
+    border: 1px solid var(--linha);
+    border-radius: 999px;
+    color: var(--grafite);
+    font-size: var(--t-peq);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--dur-media) var(--ease),
+                border-color var(--dur-media) var(--ease),
+                color var(--dur-media) var(--ease);
+  }
+  .filtro:hover { border-color: var(--ouro); color: var(--tinta); }
+  .filtro-ativo { background: var(--tinta); border-color: var(--tinta); color: var(--areia); }
+  .filtro-ativo:hover { color: var(--areia); border-color: var(--tinta); }
+
+  /* Sem opacity: texto pequeno precisa de cor real que passe em contraste.
+     ouro-fundo sobre areia = 5,48:1; ouro sobre tinta = 4,91:1. */
+  .filtro-n {
+    font-family: var(--f-sc);
+    font-weight: 700;
+    font-size: .6875rem;
+    letter-spacing: .06em;
+    color: var(--ouro-fundo);
+  }
+  .filtro-ativo .filtro-n { color: var(--ouro); }
+
+  .filtro-vazio { margin-bottom: var(--e-5); font-size: var(--t-peq); }
+
+  /* ---------------------- página de artigo ---------------------- */
+  .artigo { padding-block: clamp(2rem, 5vw, 3.5rem) var(--e-secao); }
+
+  .migalhas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: var(--e-5);
+    font-family: var(--f-sc);
+    font-weight: 700;
+    font-size: var(--t-eyebrow);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--grafite);
+  }
+  .migalhas a { color: var(--ouro-fundo); transition: opacity var(--dur-media) var(--ease); }
+  .migalhas a:hover { opacity: .7; }
+  .migalhas span[aria-hidden] { color: var(--ouro); }
+  .migalhas [aria-current] { color: var(--grafite); font-weight: 600; }
+
+  .artigo-topo { margin-bottom: var(--e-5); }
+  .artigo-topo h1 {
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    max-width: 18ch;
+    margin-bottom: var(--e-3);
+  }
+  .artigo-resumo {
+    font-size: var(--t-lead);
+    line-height: 1.6;
+    max-width: 52ch;
+    color: var(--tinta);
+  }
+
+  .artigo-corpo { max-width: var(--medida); }
+  .artigo-corpo h2 {
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    margin-top: var(--e-5);
+    margin-bottom: var(--e-2);
+  }
+  .artigo-corpo h2:first-child { margin-top: 0; }
+  .artigo-corpo p + p { margin-top: var(--e-2); }
+
+  /* ---------------------- CTA do fim do artigo ---------------------- */
+  .artigo-cta {
+    max-width: var(--medida);
+    margin-top: var(--e-6);
+    padding-top: var(--e-4);
+    border-top: 1px solid var(--linha);
+  }
+  .artigo-cta h2 { font-size: var(--t-h2); margin-bottom: var(--e-2); }
+  .artigo-cta p  { margin-bottom: var(--e-3); max-width: 52ch; }
+
+  .artigo-aviso {
+    max-width: var(--medida);
+    margin-top: var(--e-5);
+    padding-top: var(--e-3);
+    border-top: 1px solid var(--linha-neutra);
+    font-size: .8125rem;
+    line-height: 1.6;
+  }
+}

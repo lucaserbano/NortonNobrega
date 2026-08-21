@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+._*
+
+# Arquivos temporários do Office
+~$*
+
+# Material de origem — fica no disco local, não sobe para o repositório.
+# As versões otimizadas (assets/img, assets/fonts, assets/marca) é que são versionadas.
+assets/Fonte/
+assets/Fotos_originais/
+assets/Texto_original/
+assets/ID_visual/
+
+# Ferramentas
+node_modules/

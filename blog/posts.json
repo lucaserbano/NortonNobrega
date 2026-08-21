@@ -1,0 +1,234 @@
+[
+  {
+    "slug": "hemorroidas",
+    "titulo": "Hemorroidas",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "Dilatações dos vasos da região anal. Causam dor, inchaço, nódulos, sangramento e exposição à evacuação — e nem sempre exigem cirurgia.",
+    "url": "hemorroidas.html"
+  },
+  {
+    "slug": "fissura-anal",
+    "titulo": "Fissura anal",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "Ferimento na região anal que causa dor durante e após evacuar, além de sangramento. Raramente precisa de cirurgia.",
+    "url": "fissura-anal.html"
+  },
+  {
+    "slug": "abscesso-e-fistula-anal",
+    "titulo": "Abscesso e fístula anal",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "O abscesso é uma coleção de pus na região anal, com dor importante. A fístula é o que resta depois da drenagem. Ambos exigem cirurgia.",
+    "url": "abscesso-e-fistula-anal.html"
+  },
+  {
+    "slug": "plicomas-anais",
+    "titulo": "Plicomas anais",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "Pele em excesso na região anal, que pode comprometer a higiene e provocar desconforto.",
+    "url": "plicomas-anais.html"
+  },
+  {
+    "slug": "hpv-anal",
+    "titulo": "Infecção por HPV",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "Infecção viral sexualmente transmissível que provoca verrugas na pele anal. Exige avaliação minuciosa com corantes e lentes de aumento.",
+    "url": "hpv-anal.html"
+  },
+  {
+    "slug": "prurido-anal",
+    "titulo": "Prurido anal",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "Coceira na pele da região anal. Queixa bastante comum, que exige exame local cuidadoso na busca da causa.",
+    "url": "prurido-anal.html"
+  },
+  {
+    "slug": "cisto-pilonidal",
+    "titulo": "Cisto pilonidal",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "Cisto na região sacra, acima do ânus. Ocorre normalmente em homens jovens e, quando infecta, exige tratamento cirúrgico.",
+    "url": "cisto-pilonidal.html"
+  },
+  {
+    "slug": "cancer-do-anus",
+    "titulo": "Câncer do ânus",
+    "grupo": "doencas",
+    "categoria": "No ânus e no reto",
+    "resumo": "Quadro raro, caracterizado por nódulo maligno na borda anal. O diagnóstico precisa ser feito o mais rapidamente possível.",
+    "url": "cancer-do-anus.html"
+  },
+  {
+    "slug": "cancer-colorretal",
+    "titulo": "Câncer colorretal",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "O segundo câncer mais frequente em homens e mulheres após os 50 anos — e um dos poucos que pode ser evitado por meio de um exame.",
+    "url": "cancer-colorretal.html"
+  },
+  {
+    "slug": "polipos-intestinais",
+    "titulo": "Pólipos intestinais",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "Agrupamentos de células na parede interna do intestino. Inofensivos no início — e é por isso que a colonoscopia importa.",
+    "url": "polipos-intestinais.html"
+  },
+  {
+    "slug": "doenca-diverticular",
+    "titulo": "Doença diverticular dos cólons",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "Saculações nas paredes dos cólons, assintomáticas na maior parte dos pacientes. A presença dos divertículos, por si só, não exige tratamento.",
+    "url": "doenca-diverticular.html"
+  },
+  {
+    "slug": "doencas-inflamatorias-intestinais",
+    "titulo": "Retocolite ulcerativa e doença de Crohn",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "As doenças inflamatórias do intestino. Acometem principalmente jovens, têm causa ainda desconhecida e exigem acompanhamento constante.",
+    "url": "doencas-inflamatorias-intestinais.html"
+  },
+  {
+    "slug": "sindrome-do-intestino-irritavel",
+    "titulo": "Síndrome do intestino irritável",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "Alteração funcional do intestino, bastante comum: dor abdominal, distensão e mudança no hábito intestinal.",
+    "url": "sindrome-do-intestino-irritavel.html"
+  },
+  {
+    "slug": "obstipacao-intestinal",
+    "titulo": "Obstipação intestinal",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "Dificuldade de evacuar regularmente ou evacuação de fezes endurecidas. Acomete principalmente as mulheres.",
+    "url": "obstipacao-intestinal.html"
+  },
+  {
+    "slug": "incontinencia-fecal",
+    "titulo": "Incontinência fecal",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "Perda involuntária de gases ou fezes. Compromete a autoestima e a independência — e tem tratamento, que nem sempre é cirúrgico.",
+    "url": "incontinencia-fecal.html"
+  },
+  {
+    "slug": "prolapso-retal",
+    "titulo": "Prolapso retal",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "Exposição da mucosa ou de todo o reto através do ânus, com massa que se exterioriza aos esforços.",
+    "url": "prolapso-retal.html"
+  },
+  {
+    "slug": "proctopatia-actinica",
+    "titulo": "Proctopatia actínica",
+    "grupo": "doencas",
+    "categoria": "No intestino grosso",
+    "resumo": "Resultado da exposição do reto à radioterapia para tumores do útero e da próstata. Pode aparecer anos depois do tratamento.",
+    "url": "proctopatia-actinica.html"
+  },
+  {
+    "slug": "retossigmoidoscopia-rigida",
+    "titulo": "Retossigmoidoscopia rígida",
+    "grupo": "exames",
+    "categoria": "No consultório",
+    "resumo": "Avalia o canal anal e o reto com um tubo plástico descartável. É indolor e quase sempre pode ser feita já na primeira consulta.",
+    "url": "retossigmoidoscopia-rigida.html"
+  },
+  {
+    "slug": "manometria-anorretal",
+    "titulo": "Manometria anorretal",
+    "grupo": "exames",
+    "categoria": "No consultório",
+    "resumo": "Estuda a função dos esfíncteres e a sensibilidade do reto. Útil na incontinência fecal, em alguns tipos de constipação e nas dores pélvicas.",
+    "url": "manometria-anorretal.html"
+  },
+  {
+    "slug": "colonoscopia",
+    "titulo": "Colonoscopia",
+    "grupo": "exames",
+    "categoria": "Em clínica ou hospital",
+    "resumo": "Avalia todo o intestino grosso e a parte final do delgado, sob sedação. É o exame que previne o câncer colorretal, não apenas o que o diagnostica.",
+    "url": "colonoscopia.html"
+  },
+  {
+    "slug": "retossigmoidoscopia-flexivel",
+    "titulo": "Retossigmoidoscopia flexível",
+    "grupo": "exames",
+    "categoria": "Em clínica ou hospital",
+    "resumo": "Aparelho endoscópico que alcança o canal anal, o reto, o sigmoide e muitas vezes o cólon descendente.",
+    "url": "retossigmoidoscopia-flexivel.html"
+  },
+  {
+    "slug": "tempo-de-transito-colonico",
+    "titulo": "Tempo de trânsito colônico",
+    "grupo": "exames",
+    "categoria": "Em clínica ou hospital",
+    "resumo": "Marcadores radiopacos acompanhados por raio-X. Para a constipação que não responde às terapias mais comuns.",
+    "url": "tempo-de-transito-colonico.html"
+  },
+  {
+    "slug": "tabu-da-consulta",
+    "titulo": "O tabu da consulta",
+    "grupo": "dicas",
+    "categoria": "Dicas",
+    "resumo": "Medo, resistência e vergonha fazem muita gente adiar por anos. Vale saber o que de fato acontece na consulta.",
+    "url": "tabu-da-consulta.html"
+  },
+  {
+    "slug": "quando-fazer-colonoscopia",
+    "titulo": "Quando fazer colonoscopia",
+    "grupo": "dicas",
+    "categoria": "Dicas",
+    "resumo": "A recomendação para começar entre 45 e 50 anos, e o intervalo indicado para quem tem baixo risco.",
+    "url": "quando-fazer-colonoscopia.html"
+  },
+  {
+    "slug": "sangramento-e-nodulo-anal",
+    "titulo": "Sangramento e nódulo anal: quando procurar o especialista",
+    "grupo": "dicas",
+    "categoria": "Dicas",
+    "resumo": "As duas queixas podem estar relacionadas a doenças benignas ou malignas. O diagnóstico correto costuma resolver o quadro por completo.",
+    "url": "sangramento-e-nodulo-anal.html"
+  },
+  {
+    "slug": "higiene-anal",
+    "titulo": "Higiene da região anal",
+    "grupo": "dicas",
+    "categoria": "Dicas",
+    "resumo": "Água e sabonete são a melhor forma. A intolerância ao papel higiênico é relato frequente no consultório.",
+    "url": "higiene-anal.html"
+  },
+  {
+    "slug": "microbiota-intestinal",
+    "titulo": "Microbiota intestinal",
+    "grupo": "dicas",
+    "categoria": "Dicas",
+    "resumo": "As bactérias que habitam o intestino têm relação estreita com digestão, peso, alergias e até humor.",
+    "url": "microbiota-intestinal.html"
+  },
+  {
+    "slug": "habitos-de-vida-saudaveis",
+    "titulo": "Hábitos de vida e saúde do intestino",
+    "grupo": "dicas",
+    "categoria": "Dicas",
+    "resumo": "Dieta com pouca gordura animal, pouco açúcar e rica em fibras — mais exercício, peso, álcool, tabaco e sono.",
+    "url": "habitos-de-vida-saudaveis.html"
+  },
+  {
+    "slug": "colostomia-e-ileostomia",
+    "titulo": "Colostomia e ileostomia",
+    "grupo": "dicas",
+    "categoria": "Dicas",
+    "resumo": "Podem ser definitivas ou temporárias. São um desafio a ser vencido, mas muitas vezes salvam a vida do paciente.",
+    "url": "colostomia-e-ileostomia.html"
+  }
+]
