@@ -12,7 +12,8 @@ pendente está listado abaixo, na ordem em que importa.
 | WhatsApp | `5541998068000`, exibido como **(41) 99806-8000**. Está nos 33 arquivos e no JSON-LD |
 | Endereço | Coloprocto DOC, Avenida Visconde de Guarapuava, 4628, salas 709 e 710, Batel, Curitiba/PR |
 | Atendimento | Segunda a sexta, das 8h às 12h e das 14h às 18h |
-| Mapa | Query já apontada para o endereço real, com zoom 17 |
+| Mapa | Query já apontada para o endereço real, com zoom 17. Exibido a cores |
+| CEP | 80240-010, no bloco visível e no JSON-LD |
 
 **Telefone fixo e e-mail foram removidos** do site a pedido: não aparecem mais na
 seção de contato nem no rodapé. Se um dia voltarem, é um bloco `<div>` dentro de
@@ -21,23 +22,7 @@ mora em `tools/gerar-posts.mjs` para as páginas do blog.
 
 ---
 
-## 1. CEP do consultório — pendente
-
-O CEP não foi informado, então **não está no JSON-LD**. Não inventei nenhum. Ele é
-o campo que mais ajuda o Google a cravar a localização na busca local, e vale
-acrescentar. Em `index.html`, no bloco `"address"` do `<head>`:
-
-```json
-"addressRegion": "PR",
-"postalCode": "80240-000",
-"addressCountry": "BR"
-```
-
-(o CEP acima é só o formato — use o real).
-
----
-
-## 2. Ficha no Google Meu Negócio — vale conferir
+## 1. Ficha no Google Meu Negócio — vale conferir
 
 Se o consultório já tem ficha, troque a query do mapa pelo **nome da ficha** em vez
 do endereço: o pin fica mais preciso e o clique leva direto ao perfil. Em
@@ -45,7 +30,7 @@ do endereço: o pin fica mais preciso e o clique leva direto ao perfil. Em
 
 ---
 
-## 3. Domínio
+## 2. Domínio
 
 Hoje está `https://www.nortonnobrega.com.br` em 35 arquivos (canonical, Open Graph,
 sitemap). Se o domínio for outro:
@@ -60,7 +45,7 @@ nascerem com o domínio certo.
 
 ---
 
-## 4. O vídeo do hero
+## 3. O vídeo do hero
 
 Quando o arquivo chegar:
 
@@ -87,7 +72,7 @@ mãos, instrumental e o médico em campo funcionam bem e não criam exposição.
 
 ---
 
-## 5. Convênios
+## 4. Convênios
 
 Não há seção de convênios no site. Se o atendimento aceitar planos — ou se for
 exclusivamente particular — vale dizer: é a segunda pergunta que chega no WhatsApp,
@@ -104,6 +89,5 @@ grep -rn '5541999999999\|0000-0000\|exemplo.com.br\|Rua a confirmar\|00h00\|0000
   . --exclude-dir=.git --exclude=CONTATO.md
 ```
 
-Hoje ele já não retorna nada. O que ainda falta é o **CEP** (item 1) e o **vídeo do
-hero** (item 4), e nenhum dos dois aparece neste `grep` — o CEP porque foi omitido
-em vez de falseado, e o vídeo porque o bloco está comentado.
+Hoje ele já não retorna nada. O único dado que ainda falta é o **vídeo do hero**
+(item 3), e ele não aparece neste `grep` porque o bloco está comentado.

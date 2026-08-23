@@ -16,8 +16,8 @@ assets/ID_visual/
 # raiz do repositório, subir isto publicaria os scripts junto.
 .agents/
 
-# Logo da SBCP: material de origem, não referenciado por nenhuma página.
-# Se um dia entrar no site, tirar daqui e versionar a versão otimizada.
+# Logo da SBCP: arquivo de origem. A versão otimizada que o site usa é
+# assets/marca/sbcp-selo.webp, essa sim versionada.
 assets/SBCP-logo.png
 
 # Ferramentas

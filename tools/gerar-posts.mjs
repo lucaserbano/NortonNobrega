@@ -213,7 +213,7 @@ ${s.p.map((t) => `      <p>${esc(t)}</p>`).join("\n")}`).join("\n");
     <p class="eyebrow">Leia também</p>
     <h2 id="relacionados" class="so-leitor">Artigos relacionados</h2>
     <div class="grade-3">
-${relacionados.map((r) => `      <a class="cartao surge" href="${r.slug}.html">
+${relacionados.map((r) => `      <a class="cartao surge surge-cartao" href="${r.slug}.html">
         <span class="cartao-marca">${esc(r.categoria)}</span>
         <h3 class="cartao-titulo">${esc(r.titulo)}</h3>
         <p class="cartao-texto">${esc(r.resumo)}</p>
@@ -280,7 +280,7 @@ function paginaIndice(todos) {
   const filtros = `      <button class="filtro filtro-ativo" type="button" data-grupo="todos">Todos <span class="filtro-n">${todos.length}</span></button>
 ${grupos.map((g) => `      <button class="filtro" type="button" data-grupo="${g}">${esc(GRUPOS[g])} <span class="filtro-n">${todos.filter((p) => p.grupo === g).length}</span></button>`).join("\n")}`;
 
-  const cartoes = todos.map((p) => `      <a class="cartao surge" href="${p.slug}.html" data-grupo="${p.grupo}">
+  const cartoes = todos.map((p) => `      <a class="cartao surge surge-cartao" href="${p.slug}.html" data-grupo="${p.grupo}">
         <span class="cartao-marca">${esc(p.categoria)}</span>
         <h2 class="cartao-titulo">${esc(p.titulo)}</h2>
         <p class="cartao-texto">${esc(p.resumo)}</p>

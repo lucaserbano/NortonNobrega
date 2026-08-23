@@ -162,7 +162,7 @@ A logo é uma linha só que não se interrompe. O site pega essa linguagem de tr
 - **Continua atrelado ao scroll com "reduzir movimento" ligado** — ver §8. É a única exceção do site àquela regra, e é deliberada.
 - **Não aparece abaixo de 900px.** No mobile o espaço é do conteúdo.
 
-Cada seção também recebe um traço curto de 24px em `--ouro` antes do eyebrow (ver §9) — o eco do fio no nível do bloco, sem acoplar o SVG à estrutura do HTML.
+O eco do fio no nível do bloco não é mais o traço do eyebrow (que saiu da maioria das seções, ver §9): é **a régua do cartão sendo varrida** na entrada, um fio dourado que atravessa a linha de cima da esquerda para a direita e assenta na hairline neutra ao chegar.
 
 É a anatomia da especialidade usada como espinha de navegação da página. Não dá para transplantar para o site de outro médico — e é por isso que está aqui.
 
@@ -225,6 +225,16 @@ Suave e discreto. O movimento confirma que algo chegou; não anuncia a si mesmo.
 - **Reveal:** `opacity 0→1` + `translateY(12px→0)`, 700ms, stagger de **80ms** entre irmãos. Uma vez só — não reanima ao voltar.
 - **Hero:** sequência orquestrada no load — eyebrow → linhas do título → subtítulo → CTA → mídia (`scale(.98)→1`). Total ≤ 1,2s.
 - **O fio:** desenha-se com o scroll, atrelado à posição, não a um timer.
+- **Três entradas, não uma.** Uma única entrada idêntica repetida em cada bloco ("tudo sobe 12px") é o reflexo uniforme: o movimento para de dizer qualquer coisa sobre o que está chegando e vira textura. Cada entrada é a do conteúdo que ela revela:
+
+| Classe | Onde | O que faz |
+|---|---|---|
+| `.surge` | texto, títulos, itens de lista | sobe 12px e aparece |
+| `.surge-cartao` | cartões | não sobe: o fio dourado varre a régua de cima e assenta na hairline |
+| `.surge-passo` | passos da consulta | o painel aparece e o selo numerado cresce do centro, 160ms depois |
+
+- **Curvas:** `--ease` é uma quart (`cubic-bezier(.25, 1, .5, 1)`) para mudança de estado; `--ease-entrada` é uma expo (`cubic-bezier(.16, 1, .3, 1)`) para entrada. Sem bounce, sem elástico.
+- **Estado `:active` em tudo que é clicável.** No celular, sem o retorno do aperto a pessoa toca duas vezes achando que não pegou.
 - **Hover:** botão muda de fundo em 300ms; link cresce sublinhado da esquerda para a direita.
 - **Proibido:** parallax, contador animado, carrossel automático, entrada em `scale` grande, qualquer coisa que atrase a leitura.
 
@@ -263,6 +273,18 @@ O vídeo do hero não roda em autoplay: mostra o poster com botão de play.
 
 **Eyebrow** — Bold 700, caixa alta, `.14em`, cor `--ouro-fundo`, precedido de um traço de 24px em `--ouro`.
 
+**Cadência dos eyebrows: no máximo três na página, nunca um por seção.** Rótulo minúsculo em caixa alta acima de *todo* título é andaime, não voz: ele aparece porque "landing page tem isso", e a página inteira passa a abrir do mesmo jeito. Ficaram quatro, cada um com razão própria:
+
+| Onde | Por que fica |
+|---|---|
+| hero | "Coloproctologia · Curitiba" é informação, não rótulo: diz a especialidade e a cidade no primeiro segundo |
+| Quando procurar | é instrução, e é a seção de maior conversão |
+| Exames, Doenças | destinos do menu cujo `<h2>` não repete o nome da seção; sem o rótulo, quem chega pelo link não confirma que chegou |
+
+Saíram de "Como é uma consulta", "O que costuma travar", "O médico", "Agendamento", "Do blog" e "Contato" — em todas elas o próprio título ou a primeira linha da intro já nomeia a seção. O ganho não é só evitar o clichê: as seções passam a abrir de formas diferentes, e isso é ritmo.
+
+**Índice de sintomas** (`.sintomas`) — linha larga com o sintoma em corpo grande à esquerda, explicação ao lado, régua entre as linhas, seta sempre visível na ponta. Substituiu uma grade de seis cartões. A razão é o trabalho que o leitor faz ali: ele não está comparando seis opções, está varrendo atrás de uma que seja a dele, e varrer uma coluna é mais rápido do que pular entre cartões. De quebra, a página deixa de repetir o mesmo cartão em três seções seguidas.
+
 **Cartão de sintoma / doença** — sem caixa. Hairline no topo, título em Bold 700, uma linha de corpo e, no pé, a chamada `.cartao-mais` ("Entender este sintoma →"). A chamada não é enfeite: sem ela o cartão parecia texto solto e ninguém percebia que era clicável. Hover: hairline vira `--ouro`, o bloco sobe 2px e a seta avança 4px.
 
 **Dica de clique** (`.dica-clique`) — no cabeçalho de toda seção cujos itens são clicáveis: ícone de ponteiro em traço + uma linha em `--ouro-fundo` dizendo o que acontece ao clicar. Existe porque o cartão sem caixa e a lista com hairline são discretos demais para se anunciarem sozinhos.
@@ -276,6 +298,14 @@ O vídeo do hero não roda em autoplay: mostra o poster com botão de play.
 **Marca d'água** (`.marca-dagua`) — o símbolo em corpo grande, `height: 110%` da seção, opacidade 7%, encostado na borda direita. O recuo é `transform: translate(35%, -50%)`, proporcional à **própria marca** e não à seção: assim o enquadramento é o mesmo numa faixa curta e numa faixa longa. Decorativa de verdade — `aria-hidden`, `alt` vazio, `pointer-events: none`. Versão ouro sobre fundo claro, versão branca sobre `--tinta`.
 
 **Foco visível** — `outline: 2px solid var(--ouro-fundo); outline-offset: 3px`. Nunca removido.
+
+**Faixa de credenciais** (`.credenciais`) — fundo `--grafite` (`#424345`), títulos em `--areia` (**9,57:1**) e detalhe em `rgba(251,251,251,.86)` (**7,58:1**). O ouro **não serve aqui**: `#C88F4A` sobre grafite dá 3,53:1, que reprova para texto de corpo pequeno. É a faixa escura logo abaixo do hero, e ela separa o hero do índice de sintomas sem precisar de filete.
+
+**Selo da SBCP** (`.credencial-selada`) — o selo da Sociedade Brasileira de Coloproctologia acompanha **só** a credencial de Membro, na faixa acima. Espalhá-lo pela faixa daria a entender que a sociedade chancela a formação inteira. **Cor original preservada: é marca de terceiro, não se recolore.** Como o verde `#007C39` sobre o grafite cairia para 1,86:1, o que muda é o que está atrás dele — um disco em `--areia` por baixo. Sobre esse disco o verde dá 5,15:1.
+
+**Rodapé, linha final** (`.rodape-base`) — grade de duas colunas, não flex. Como item flex o aviso legal não crescia (`flex-grow` é 0 por padrão) e se espremia em três linhas curtas à esquerda com um vazio enorme ao lado, por mais que a `max-width` aumentasse. Na grade ele ocupa a coluna inteira, em duas linhas de ~96 caracteres. É medida longa para leitura corrida, e deliberada: é texto legal de rodapé, não copy. A entrelinha sobe para 1,75 para o olho achar a linha seguinte.
+
+**Mapa** (`.mapa`) — a cores. Nasceu em `grayscale(1)` revelando cor no hover; o cliente pediu colorido, e a dessaturação de fato escondia a única informação que o mapa carrega (onde é) atrás de uma interação que ninguém descobre.
 
 ---
 
@@ -327,6 +357,8 @@ Segunda pessoa para o leitor, frases curtas, verbo no presente.
 ## 12. Checklist antes de publicar
 
 - [ ] Nenhum texto em `#C88F4A`
+- [ ] Nenhum elemento com borda de 1px **e** `box-shadow` de desfoque ≥16px (o padrão "ghost-card": escolhe-se um dos dois)
+- [ ] No máximo três eyebrows na página
 - [ ] Nenhum travessão (`—`) no texto publicado
 - [ ] Nenhuma citação do médico em terceira pessoa
 - [ ] Nenhuma fonte Condensed ou SemiCondensed carregada

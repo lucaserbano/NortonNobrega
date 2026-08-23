@@ -45,6 +45,7 @@
     "streetAddress": "Avenida Visconde de Guarapuava, 4628, salas 709 e 710",
     "addressLocality": "Curitiba",
     "addressRegion": "PR",
+    "postalCode": "80240-010",
     "addressCountry": "BR"
   },
   "areaServed": { "@type": "City", "name": "Curitiba" },
@@ -199,9 +200,14 @@
         <span class="credencial-titulo">Preceptor da Residência</span>
         <span class="credencial-detalhe">Coloproctologia, HC da UFPR (2017–2024)</span>
       </div>
-      <div class="surge">
-        <span class="credencial-titulo">Membro Titular</span>
-        <span class="credencial-detalhe">Sociedade Brasileira de Coloproctologia</span>
+      <div class="surge credencial-selada">
+        <img class="credencial-selo" src="assets/marca/sbcp-selo.webp"
+             alt="Selo da Sociedade Brasileira de Coloproctologia"
+             width="192" height="192" loading="lazy" decoding="async">
+        <span>
+          <span class="credencial-titulo">Membro</span>
+          <span class="credencial-detalhe">Sociedade Brasileira de Coloproctologia</span>
+        </span>
       </div>
     </div>
   </div>
@@ -229,44 +235,50 @@
       </p>
     </div>
 
-    <div class="grade-3">
-      <a class="cartao surge" href="blog/hemorroidas.html">
-        <span class="cartao-marca">Sintoma</span>
-        <h3 class="cartao-titulo">Sangramento ao evacuar</h3>
-        <p class="cartao-texto">Sangue vivo no papel ou no vaso. Costuma ser hemorroida ou fissura, mas sangramento sempre merece avaliação.</p>
-        <span class="cartao-mais">Entender este sintoma</span>
-      </a>
-      <a class="cartao surge" href="blog/fissura-anal.html">
-        <span class="cartao-marca">Sintoma</span>
-        <h3 class="cartao-titulo">Dor durante ou depois de evacuar</h3>
-        <p class="cartao-texto">Dor em queimação que persiste por minutos ou horas. É a marca registrada da fissura anal.</p>
-        <span class="cartao-mais">Entender este sintoma</span>
-      </a>
-      <a class="cartao surge" href="blog/hemorroidas.html">
-        <span class="cartao-marca">Sintoma</span>
-        <h3 class="cartao-titulo">Um caroço ou nódulo no ânus</h3>
-        <p class="cartao-texto">Aumento de volume, com ou sem dor. Pode ser trombo, plicoma ou abscesso, e só o exame diz qual.</p>
-        <span class="cartao-mais">Entender este sintoma</span>
-      </a>
-      <a class="cartao surge" href="blog/prurido-anal.html">
-        <span class="cartao-marca">Sintoma</span>
-        <h3 class="cartao-titulo">Coceira que não passa</h3>
-        <p class="cartao-texto">Prurido anal persistente, muitas vezes tratado por conta própria por anos. Tem causa, e tem tratamento.</p>
-        <span class="cartao-mais">Entender este sintoma</span>
-      </a>
-      <a class="cartao surge" href="blog/cancer-colorretal.html">
-        <span class="cartao-marca">Sintoma</span>
-        <h3 class="cartao-titulo">Mudança no hábito intestinal</h3>
-        <p class="cartao-texto">Diarreia ou prisão de ventre que apareceu e não passa, fezes mais finas, sensação de não esvaziar.</p>
-        <span class="cartao-mais">Entender este sintoma</span>
-      </a>
-      <a class="cartao surge" href="blog/incontinencia-fecal.html">
-        <span class="cartao-marca">Sintoma</span>
-        <h3 class="cartao-titulo">Perda de gases ou fezes sem controle</h3>
-        <p class="cartao-texto">Mais comum do que se imagina, principalmente em mulheres após partos. Tem tratamento, e não é só cirurgia.</p>
-        <span class="cartao-mais">Entender este sintoma</span>
-      </a>
-    </div>
+    <ul class="sintomas">
+      <li class="surge">
+        <a href="blog/hemorroidas.html">
+          <h3>Sangramento ao evacuar</h3>
+          <p>Sangue vivo no papel ou no vaso. Costuma ser hemorroida ou fissura, mas sangramento sempre merece avaliação.</p>
+          <span class="sintomas-seta" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+      <li class="surge">
+        <a href="blog/fissura-anal.html">
+          <h3>Dor durante ou depois de evacuar</h3>
+          <p>Dor em queimação que persiste por minutos ou horas. É a marca registrada da fissura anal.</p>
+          <span class="sintomas-seta" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+      <li class="surge">
+        <a href="blog/hemorroidas.html">
+          <h3>Um caroço ou nódulo no ânus</h3>
+          <p>Aumento de volume, com ou sem dor. Pode ser trombo, plicoma ou abscesso, e só o exame diz qual.</p>
+          <span class="sintomas-seta" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+      <li class="surge">
+        <a href="blog/prurido-anal.html">
+          <h3>Coceira que não passa</h3>
+          <p>Prurido anal persistente, muitas vezes tratado por conta própria por anos. Tem causa, e tem tratamento.</p>
+          <span class="sintomas-seta" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+      <li class="surge">
+        <a href="blog/cancer-colorretal.html">
+          <h3>Mudança no hábito intestinal</h3>
+          <p>Diarreia ou prisão de ventre que apareceu e não passa, fezes mais finas, sensação de não esvaziar.</p>
+          <span class="sintomas-seta" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+      <li class="surge">
+        <a href="blog/incontinencia-fecal.html">
+          <h3>Perda de gases ou fezes sem controle</h3>
+          <p>Mais comum do que se imagina, principalmente em mulheres após partos. Tem tratamento, e não é só cirurgia.</p>
+          <span class="sintomas-seta" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+    </ul>
 
     <div class="grupo-btn surge" style="margin-top: var(--e-5)">
       <a class="btn btn-principal" href="https://wa.me/5541998068000?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener">Agendar consulta no WhatsApp</a>
@@ -279,7 +291,6 @@
 <section class="secao secao-nevoa" id="consulta">
   <div class="contem">
     <div class="cabeca">
-      <p class="eyebrow surge">Como é uma consulta</p>
       <h2 class="surge">Nada acontece <strong>sem explicação</strong> antes.</h2>
       <p class="cabeca-intro surge">
         A consulta do coloproctologista segue os mesmos princípios de confidencialidade
@@ -292,25 +303,25 @@
          painel do passo pendura abaixo dele. O trilho é desenhado em CSS
          (.passo::before / ::after) e troca de eixo quando os passos empilham. -->
     <ol class="passos">
-      <li class="passo surge">
+      <li class="passo surge surge-passo">
         <span class="passo-selo" aria-hidden="true">1</span>
         <span class="passo-etapa">A conversa</span>
         <h3>Você conta o que está sentindo</h3>
         <p>Suas queixas, suas dúvidas, exames e tratamentos que você já fez, outras doenças, medicamentos de uso contínuo, cirurgias anteriores e hábitos de vida.</p>
       </li>
-      <li class="passo surge">
+      <li class="passo surge surge-passo">
         <span class="passo-selo" aria-hidden="true">2</span>
         <span class="passo-etapa">O exame físico</span>
         <h3>Feito conforme o seu quadro</h3>
         <p>Nada de rotina automática: examino o que responde ao que foi conversado, e explico cada passo antes de dar o passo.</p>
       </li>
-      <li class="passo surge">
+      <li class="passo surge surge-passo">
         <span class="passo-selo" aria-hidden="true">3</span>
         <span class="passo-etapa">O exame proctológico</span>
         <h3>A parte que mais gera insegurança</h3>
         <p>Feito em ambiente calmo e com privacidade inteira. Costuma incluir o toque retal e a retossigmoidoscopia rígida, com um tubo pequeno e descartável.</p>
       </li>
-      <li class="passo surge">
+      <li class="passo surge surge-passo">
         <span class="passo-selo" aria-hidden="true">4</span>
         <span class="passo-etapa">A conduta</span>
         <h3>Diagnóstico em palavras claras</h3>
@@ -334,7 +345,6 @@
 
   <div class="contem">
     <div class="retrato-texto surge">
-      <p class="eyebrow">O que costuma travar</p>
       <blockquote class="destaque">
         É conhecido o medo, a resistência e a vergonha da exposição na consulta ao
         coloproctologista. Muitas vezes os pacientes sofrem por longos períodos e gastam
@@ -360,7 +370,6 @@
 
   <div class="contem">
     <div class="retrato-texto">
-      <p class="eyebrow surge">O médico</p>
       <h2 class="surge">Três décadas cuidando de um assunto que <strong>quase ninguém fala</strong>.</h2>
       <p class="cabeca-intro surge">
         O coloproctologista é o cirurgião especialista nas doenças clínicas e cirúrgicas
@@ -429,7 +438,7 @@
             <svg class="cred-icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.3 1.6 2.8-.2.9 2.6 2.3 1.6-1 2.6 1 2.6-2.3 1.6-.9 2.6-2.8-.2L12 21l-2.3-1.6-2.8.2-.9-2.6-2.3-1.6 1-2.6-1-2.6 2.3-1.6.9-2.6 2.8.2z"/><path d="m9.3 12 1.9 1.9 3.5-3.8"/></svg>
             <div>
               <span class="cred-ano">Desde então</span>
-              <p class="cred-titulo">Membro Titular</p>
+              <p class="cred-titulo">Membro</p>
               <p class="cred-onde">Sociedade Brasileira de Coloproctologia</p>
             </div>
           </li>
@@ -448,7 +457,6 @@
 
   <div class="contem">
     <div class="faixa-cta">
-      <p class="eyebrow surge">Agendamento</p>
       <h2 class="surge">Quanto antes você olha, <strong>menor o problema</strong>.</h2>
       <p class="surge">
         A maior parte das queixas que atendo é benigna e tem tratamento simples,
@@ -482,37 +490,37 @@
     </div>
 
     <div class="grade-3">
-      <a class="cartao surge" href="blog/retossigmoidoscopia-rigida.html">
+      <a class="cartao surge surge-cartao" href="blog/retossigmoidoscopia-rigida.html">
         <span class="cartao-marca">No consultório</span>
         <h3 class="cartao-titulo">Retossigmoidoscopia rígida</h3>
         <p class="cartao-texto">Avalia o canal anal e o reto com um tubo descartável. Indolor e quase sempre possível já na primeira consulta.</p>
         <span class="cartao-mais">Ver como é feito</span>
       </a>
-      <a class="cartao surge" href="blog/manometria-anorretal.html">
+      <a class="cartao surge surge-cartao" href="blog/manometria-anorretal.html">
         <span class="cartao-marca">No consultório</span>
         <h3 class="cartao-titulo">Manometria anorretal</h3>
         <p class="cartao-texto">Estuda a função dos esfíncteres e a sensibilidade do reto. Útil em incontinência, constipação e dor pélvica.</p>
         <span class="cartao-mais">Ver como é feito</span>
       </a>
-      <a class="cartao surge" href="blog/colonoscopia.html">
+      <a class="cartao surge surge-cartao" href="blog/colonoscopia.html">
         <span class="cartao-marca">Em clínica</span>
         <h3 class="cartao-titulo">Colonoscopia</h3>
         <p class="cartao-texto">Avalia todo o intestino grosso sob sedação. É o exame que previne o câncer colorretal, não só o que diagnostica.</p>
         <span class="cartao-mais">Ver como é feito</span>
       </a>
-      <a class="cartao surge" href="blog/retossigmoidoscopia-flexivel.html">
+      <a class="cartao surge surge-cartao" href="blog/retossigmoidoscopia-flexivel.html">
         <span class="cartao-marca">Em clínica</span>
         <h3 class="cartao-titulo">Retossigmoidoscopia flexível</h3>
         <p class="cartao-texto">Aparelho endoscópico que alcança o cólon sigmoide. Indicada para sangramento e dor abdominal.</p>
         <span class="cartao-mais">Ver como é feito</span>
       </a>
-      <a class="cartao surge" href="blog/tempo-de-transito-colonico.html">
+      <a class="cartao surge surge-cartao" href="blog/tempo-de-transito-colonico.html">
         <span class="cartao-marca">Em clínica</span>
         <h3 class="cartao-titulo">Tempo de trânsito colônico</h3>
         <p class="cartao-texto">Marcadores acompanhados por raio-X. Para constipação que não responde aos tratamentos habituais.</p>
         <span class="cartao-mais">Ver como é feito</span>
       </a>
-      <a class="cartao surge" href="blog/?categoria=exames">
+      <a class="cartao surge surge-cartao" href="blog/?categoria=exames">
         <span class="cartao-marca">Todos</span>
         <h3 class="cartao-titulo">Ver todos os exames</h3>
         <p class="cartao-texto">Como cada exame é feito, para que serve e o que esperar, explicado sem jargão.</p>
@@ -575,7 +583,6 @@
 <section class="secao" id="blog">
   <div class="contem">
     <div class="cabeca">
-      <p class="eyebrow surge">Do blog</p>
       <h2 class="surge">Para ler <strong>antes de vir</strong>.</h2>
       <p class="cabeca-intro surge">
         Explicações curtas sobre prevenção, hábitos e o que esperar de cada exame.
@@ -587,19 +594,19 @@
     </div>
 
     <div class="grade-3">
-      <a class="cartao surge" href="blog/tabu-da-consulta.html">
+      <a class="cartao surge surge-cartao" href="blog/tabu-da-consulta.html">
         <span class="cartao-marca">Dicas</span>
         <h3 class="cartao-titulo">O tabu da consulta</h3>
         <p class="cartao-texto">Por que tanta gente adia, e o que de fato acontece quando você finalmente vai.</p>
         <span class="cartao-mais">Ler o artigo</span>
       </a>
-      <a class="cartao surge" href="blog/quando-fazer-colonoscopia.html">
+      <a class="cartao surge surge-cartao" href="blog/quando-fazer-colonoscopia.html">
         <span class="cartao-marca">Dicas</span>
         <h3 class="cartao-titulo">Quando fazer colonoscopia</h3>
         <p class="cartao-texto">A recomendação a partir dos 45 aos 50 anos, e o intervalo para quem tem baixo risco.</p>
         <span class="cartao-mais">Ler o artigo</span>
       </a>
-      <a class="cartao surge" href="blog/microbiota-intestinal.html">
+      <a class="cartao surge surge-cartao" href="blog/microbiota-intestinal.html">
         <span class="cartao-marca">Dicas</span>
         <h3 class="cartao-titulo">Microbiota intestinal</h3>
         <p class="cartao-texto">A relação entre as bactérias do intestino e digestão, peso, alergias e humor.</p>
@@ -617,7 +624,6 @@
 <section class="secao secao-nevoa" id="contato">
   <div class="contem">
     <div class="cabeca">
-      <p class="eyebrow surge">Contato</p>
       <h2 class="surge">Onde fica e <strong>como agendar</strong>.</h2>
     </div>
 
@@ -635,7 +641,7 @@
             <p class="dado-valor">
               Coloprocto DOC<br>
               Avenida Visconde de Guarapuava, 4628, salas 709 e 710<br>
-              Batel · Curitiba/PR
+              Batel · Curitiba/PR · CEP 80240-010
             </p>
           </div>
           <div>

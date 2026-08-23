@@ -97,7 +97,10 @@
     --dur-rapida: 200ms;
     --dur-media:  300ms;
     --dur-lenta:  700ms;
-    --ease: cubic-bezier(.22, .61, .36, 1);
+    /* Desaceleração exponencial, sem bounce. A curva antiga era uma quad,
+       que em 300ms lê como "linear com jeitinho". */
+    --ease:         cubic-bezier(.25, 1, .5, 1);      /* quart, para estado  */
+    --ease-entrada: cubic-bezier(.16, 1, .3, 1);      /* expo, para entrada  */
 
     --altura-topo: 4.75rem;
   }
@@ -254,6 +257,14 @@
   .btn-principal { background: var(--ouro-fundo); color: var(--areia); }
   .btn-principal:hover { background: var(--tinta); }
 
+  /* Retorno do toque. Sem isto, no celular o botão não confirma o aperto e a
+     pessoa toca duas vezes achando que não pegou. */
+  .btn:active { transform: translateY(1px); }
+  .btn { transition: background-color var(--dur-media) var(--ease),
+                     border-color var(--dur-media) var(--ease),
+                     color var(--dur-media) var(--ease),
+                     transform var(--dur-rapida) var(--ease); }
+
   .btn-secundario { background: transparent; color: var(--tinta); border-color: var(--linha-forte); }
   .btn-secundario:hover { background: var(--tinta); color: var(--areia); border-color: var(--tinta); }
 
@@ -284,12 +295,32 @@
 
   /* ---- cartão sem caixa: hairline no topo ---- */
   .cartao {
+    position: relative;
     display: block;
     padding-top: var(--e-3);
     padding-bottom: var(--e-4);
-    border-top: 1px solid var(--linha);
-    transition: border-color var(--dur-media) var(--ease),
-                transform var(--dur-media) var(--ease);
+    transition: transform var(--dur-media) var(--ease);
+  }
+
+  /* A régua de cima é este pseudo, não um `border-top`: assim ela pode ser
+     varrida. Na entrada o fio dourado atravessa a régua da esquerda para a
+     direita e, ao chegar, assenta na hairline neutra. O ouro fica reservado
+     ao hover, que é o que ele sinaliza. */
+  .cartao::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--linha);
+    transform-origin: left;
+    transition: background-color var(--dur-media) var(--ease);
+  }
+  .js .cartao::before { transform: scaleX(0); background: var(--ouro); }
+  .js .surge-visivel.cartao::before {
+    transform: scaleX(1);
+    background: var(--linha);
+    transition: transform var(--dur-lenta) var(--ease-entrada) var(--atraso, 0ms),
+                background-color var(--dur-media) linear calc(var(--atraso, 0ms) + var(--dur-lenta));
   }
   .cartao-titulo {
     font-family: var(--f-corpo);
@@ -312,7 +343,9 @@
     margin-bottom: .75rem;
   }
 
-  a.cartao:hover { border-top-color: var(--ouro); transform: translateY(-2px); }
+  a.cartao:hover { transform: translateY(-2px); }
+  a.cartao:hover::before,
+  a.cartao:focus-visible::before { background: var(--ouro); }
   a.cartao:hover .cartao-titulo { color: var(--ouro-fundo); }
   .cartao-titulo { transition: color var(--dur-media) var(--ease); }
 
@@ -337,6 +370,7 @@
     transition: transform var(--dur-media) var(--ease);
   }
   .lista-linhas a:hover { color: var(--ouro-fundo); padding-left: .5rem; }
+  .lista-linhas a:active { color: var(--tinta); }
   .lista-linhas a:hover::after { transform: translateX(4px); }
 
   /* ---- citação em destaque ---- */
@@ -590,6 +624,7 @@
                 transform var(--dur-media) var(--ease);
   }
   .zap:hover { background: var(--tinta); }
+  .zap:active { transform: translateY(1px) scale(.98); }
   .zap svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
   .zap-texto { display: none; }
   @media (min-width: 560px) { .zap-texto { display: inline; } }
@@ -633,10 +668,71 @@
     color: var(--grafite);
   }
 
+  /* ---------- quando procurar ----------
+     Era a terceira grade de cartões iguais da página, e era a que menos
+     combinava com o trabalho que o leitor está fazendo ali: ele não está
+     comparando seis opções, está varrendo uma lista atrás de uma que seja a
+     dele. Virou índice — linha larga, sintoma em corpo grande, explicação ao
+     lado, régua separando. Reconhecer fica mais rápido, e a página deixa de
+     repetir o mesmo cartão em três seções seguidas. */
+  .sintomas { border-top: 1px solid var(--linha); }
+  .sintomas li { border-bottom: 1px solid var(--linha); }
+
+  /* Empilhado: sintoma e seta na primeira linha, explicação atravessando as
+     duas colunas embaixo. A seta continua à vista — é o que diz que a linha
+     leva a algum lugar, e escondê-la no celular tirava justamente de quem
+     mais usa o site. */
+  .sintomas a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .3rem var(--e-2);
+    padding: var(--e-3) 0;
+    align-items: baseline;
+    transition: padding-left var(--dur-media) var(--ease);
+  }
+  .sintomas h3        { grid-row: 1; grid-column: 1; }
+  .sintomas-seta      { grid-row: 1; grid-column: 2; }
+  .sintomas p         { grid-row: 2; grid-column: 1 / -1; }
+
+  @media (min-width: 820px) {
+    .sintomas a {
+      grid-template-columns: minmax(0, 21rem) minmax(0, 38rem) auto;
+      gap: var(--e-4);
+      padding: var(--e-4) 0;
+    }
+    .sintomas h3,
+    .sintomas-seta,
+    .sintomas p { grid-row: auto; grid-column: auto; }
+  }
+
+  .sintomas h3 {
+    font-size: clamp(1.2rem, 2.1vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: -.012em;
+    line-height: 1.25;
+    transition: color var(--dur-media) var(--ease);
+  }
+  .sintomas p { font-size: var(--t-peq); }
+
+  .sintomas-seta {
+    color: var(--ouro-fundo);
+    font-weight: 600;
+    justify-self: end;
+    transition: transform var(--dur-media) var(--ease);
+  }
+  .sintomas a:hover { padding-left: .625rem; }
+  .sintomas a:active h3 { color: var(--tinta); }
+  .sintomas a:hover h3 { color: var(--ouro-fundo); }
+  .sintomas a:hover .sintomas-seta { transform: translateX(5px); }
+
   /* ---------- faixa de credenciais ---------- */
+  /* Faixa em grafite. #FBFBFB sobre #424345 dá 9,57:1; o detalhe, em
+     rgba(251,251,251,.86), dá 7,58:1. O ouro NÃO serve aqui: #C88F4A sobre
+     grafite dá 3,53:1, que reprova para texto de corpo pequeno. */
   .credenciais {
     padding-block: var(--e-5);
-    border-block: 1px solid var(--linha);
+    background: var(--grafite);
+    color: rgba(251, 251, 251, .86);
   }
   .credenciais-grade {
     display: grid;
@@ -650,11 +746,29 @@
     font-family: var(--f-corpo);
     font-weight: 700;
     font-size: 1.0625rem;
-    color: var(--tinta);
+    color: var(--areia);
     line-height: 1.3;
     margin-bottom: .3rem;
   }
   .credencial-detalhe { display: block; font-size: var(--t-peq); line-height: 1.5; }
+
+  /* O selo fica só nesta credencial, e de propósito: ele pertence à
+     titularidade na SBCP, não às outras três. Espalhá-lo pela faixa daria a
+     entender que a sociedade chancela a formação inteira. */
+  .credencial-selada { display: flex; align-items: flex-start; gap: .875rem; }
+  .credencial-selo {
+    width: 3.25rem;
+    height: 3.25rem;
+    flex: none;
+    margin-top: -.15rem;
+    /* Disco claro por baixo: o verde da SBCP sobre o grafite dá 1,86:1 e
+       sumiria. Recolorir a marca de outra instituição não é opção, então o
+       que muda é o que está atrás dela. */
+    background: var(--areia);
+    border-radius: 50%;
+    padding: .3rem;
+    box-sizing: content-box;
+  }
 
   /* ---------- passos da consulta ----------
      Linha do tempo de verdade: selo numerado grande sobre um trilho
@@ -683,10 +797,12 @@
                 transform var(--dur-media) var(--ease),
                 box-shadow var(--dur-media) var(--ease);
   }
+  /* Sem sombra larga aqui: borda de 1px somada a `box-shadow` de 32px de
+     desfoque no mesmo elemento é o padrão "ghost-card". Escolhe-se um dos
+     dois. Aqui é a borda, que já é a linguagem do site. */
   .passo:hover {
-    border-color: var(--linha-forte);
+    border-color: var(--ouro);
     transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(45, 45, 45, .07);
   }
 
   /* O selo cavalga a borda de cima do painel. O anel na cor da faixa é o
@@ -711,7 +827,9 @@
     font-variant-numeric: tabular-nums;
     transition: background-color var(--dur-media) var(--ease),
                 border-color var(--dur-media) var(--ease),
-                color var(--dur-media) var(--ease);
+                color var(--dur-media) var(--ease),
+                transform var(--dur-lenta) var(--ease-entrada),
+                opacity var(--dur-media) var(--ease-entrada);
   }
   .passo:hover .passo-selo {
     background: var(--ouro-fundo);
@@ -949,10 +1067,7 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     border: 1px solid var(--linha);
-    filter: grayscale(1) contrast(.92);
-    transition: filter var(--dur-lenta) var(--ease);
   }
-  .mapa:hover { filter: grayscale(0) contrast(1); }
   @media (min-width: 800px) { .mapa { aspect-ratio: 1 / 1; } }
 
   /* ---------- rodapé ---------- */
@@ -971,18 +1086,29 @@
   }
   .rodape li a { display: block; padding-block: .3rem; font-size: var(--t-peq); transition: color var(--dur-media) var(--ease); }
   .rodape li a:hover { color: var(--ouro); }
+  /* Grade, não flex: como item flex o aviso não crescia (o `flex-grow` é 0
+     por padrão), e por isso ele se espremia em três linhas curtas à esquerda
+     com um vazio enorme ao lado, por mais que a `max-width` fosse aumentada.
+     Aqui ele ocupa a coluna inteira e o © fica na segunda. */
   .rodape-base {
     margin-top: var(--e-5);
     padding-top: var(--e-3);
     border-top: 1px solid rgba(251, 251, 251, .14);
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
     gap: var(--e-2) var(--e-4);
-    justify-content: space-between;
     font-size: .8125rem;
-    line-height: 1.6;
+    /* linha longa precisa de mais entrelinha para o olho achar a próxima */
+    line-height: 1.75;
   }
-  .aviso { max-width: 62ch; }
+  .rodape-base > :last-child { justify-self: end; }
+  .aviso { max-width: none; text-wrap: pretty; }
+
+  @media (max-width: 599px) {
+    .rodape-base { grid-template-columns: 1fr; }
+    .rodape-base > :last-child { justify-self: start; }
+  }
 }
 
 /* ============================ UTILIDADES ============================ */
@@ -1016,15 +1142,40 @@
   /* Reveal de entrada.
      O estado inicial escondido só é aplicado quando há JavaScript para
      revelá-lo depois (a classe .js entra por um script inline no <head>).
-     Sem JS a página nasce visível — do contrário o site inteiro sumiria. */
+     Sem JS a página nasce visível — do contrário o site inteiro sumiria.
+
+     São três entradas, não uma. Uma única entrada idêntica repetida em cada
+     bloco da página é o reflexo uniforme: a página inteira "sobe 12px" e o
+     movimento deixa de dizer qualquer coisa sobre o que está chegando. Cada
+     entrada aqui é a do conteúdo que ela revela. */
   .js .surge {
     opacity: 0;
     transform: translateY(12px);
-    transition: opacity var(--dur-lenta) var(--ease),
-                transform var(--dur-lenta) var(--ease);
+    transition: opacity var(--dur-lenta) var(--ease-entrada),
+                transform var(--dur-lenta) var(--ease-entrada);
     transition-delay: var(--atraso, 0ms);
   }
   .js .surge-visivel { opacity: 1; transform: none; }
+
+  /* Cartão: não sobe. O que entra é o fio dourado varrendo a régua de cima,
+     que é a identidade do cartão — e o eco do fio da página. O corpo só
+     aparece. Ver .cartao::before em componentes. */
+  .js .surge-cartao { opacity: 0; transform: none; }
+  .js .surge-cartao.surge-visivel { opacity: 1; }
+
+  /* Passo da consulta: o painel aparece e o selo numerado entra depois,
+     crescendo do centro. A sequência dos selos é o assunto da seção. */
+  .js .surge-passo { opacity: 0; transform: none; }
+  .js .surge-passo.surge-visivel { opacity: 1; }
+  .js .surge-passo .passo-selo {
+    transform: scale(.55);
+    opacity: 0;
+  }
+  .js .surge-passo.surge-visivel .passo-selo {
+    transform: none;
+    opacity: 1;
+    transition-delay: calc(var(--atraso, 0ms) + 160ms);
+  }
 }
 
 /* ============================ MOVIMENTO REDUZIDO ============================ */
@@ -1036,6 +1187,8 @@
     scroll-behavior: auto !important;
   }
   .js .surge { opacity: 1; transform: none; }
+  .js .cartao::before { transform: none; background: var(--linha); }
+  .js .surge-passo .passo-selo { transform: none; opacity: 1; }
 
   /* Exceção deliberada: o fio não é animação, é leitura de posição.
      Ele não se move sozinho — só reflete onde a rolagem está, que é um
