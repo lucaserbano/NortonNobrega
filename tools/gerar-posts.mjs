@@ -19,7 +19,7 @@ import { posts, GRUPOS } from "./conteudo.mjs";
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BLOG = join(RAIZ, "blog");
 
-const SITE = "https://www.nortonnobrega.com.br";
+const SITE = "https://drnortonnobrega.com";
 const ZAP = "5541998068000";
 const MEDICO = "Norton Luiz Nóbrega";
 const REGISTRO = "CRM-PR 12.440 · RQE 5531";

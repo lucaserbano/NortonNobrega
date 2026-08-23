@@ -32,7 +32,7 @@ do endereço: o pin fica mais preciso e o clique leva direto ao perfil. Em
 
 ## 2. Domínio
 
-Hoje está `https://www.nortonnobrega.com.br` em 35 arquivos (canonical, Open Graph,
+Hoje está `https://drnortonnobrega.com` em 35 arquivos (canonical, Open Graph,
 sitemap). Se o domínio for outro:
 
 ```bash
