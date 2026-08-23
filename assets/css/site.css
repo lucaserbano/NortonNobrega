@@ -584,13 +584,54 @@
   @media (min-width: 1000px) { .btn-menu { display: none; } }
   .btn-menu svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
+  /* O painel só existe abaixo de 1000px, onde a .nav horizontal some.
+     Sem JS ele fica no fluxo, aberto: é a única navegação que resta nessa
+     largura, e esconder o que o JS não vai revelar deixaria a página sem
+     menu nenhum (a mesma regra do .js que vale para o .surge). */
   .menu {
-    display: none;
     border-top: 1px solid var(--linha);
     padding-block: var(--e-3) var(--e-4);
   }
-  .menu-aberto { display: block; }
-  @media (min-width: 1000px) { .menu, .menu-aberto { display: none; } }
+  @media (min-width: 1000px) { .menu { display: none; } }
+
+  /* Com JS o painel sai do fluxo e paira sobre a página. Empurrar o conteúdo
+     para baixo a cada toque desloca justamente o trecho que a pessoa estava
+     lendo; pairando, a página fica onde estava e o menu se sobrepõe. */
+  .js .menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding-inline: var(--borda-pag);
+    /* Celular deitado: o painel não pode passar do fim da tela sem rolagem */
+    max-height: calc(100dvh - var(--altura-topo));
+    overflow-y: auto;
+    /* Opaco, e não translúcido como a barra: um elemento com backdrop-filter
+       (o .topo) vira raiz de fundo, então o blur de um filho não enxerga a
+       página atrás e o texto do hero atravessava o painel legível. */
+    background: var(--areia);
+    border-top-color: var(--linha);
+    border-bottom: 1px solid var(--linha);
+    box-shadow: 0 24px 44px -28px rgba(45, 45, 45, .5);
+    opacity: 0;
+    transform: translateY(-.625rem);
+    /* `visibility` sai do foco e do leitor de tela quando fechado, e a
+       transição de 0s adiada até o fim do fade evita que o painel suma
+       antes de terminar de se apagar. */
+    visibility: hidden;
+    transition: opacity var(--dur-rapida) var(--ease),
+                transform var(--dur-rapida) var(--ease),
+                visibility 0s linear var(--dur-rapida);
+  }
+  .js .menu-aberto {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition: opacity var(--dur-media) var(--ease-entrada),
+                transform var(--dur-media) var(--ease-entrada),
+                visibility 0s;
+  }
+
   .menu a {
     display: block;
     padding: .75rem 0;
@@ -598,7 +639,36 @@
     color: var(--grafite);
     border-bottom: 1px solid var(--linha);
   }
-  .menu .btn { margin-top: var(--e-3); width: 100%; }
+  /* Os itens entram logo atrás do painel, um a um. O escalonamento é curto:
+     é confirmação de que o menu abriu, não coreografia. */
+  .js .menu a {
+    opacity: 0;
+    transform: translateY(-.35rem);
+    transition: opacity var(--dur-rapida) var(--ease),
+                transform var(--dur-rapida) var(--ease),
+                color var(--dur-media) var(--ease);
+  }
+  .js .menu-aberto a { opacity: 1; transform: none; }
+  .js .menu-aberto a:nth-child(1) { transition-delay:  60ms; }
+  .js .menu-aberto a:nth-child(2) { transition-delay:  95ms; }
+  .js .menu-aberto a:nth-child(3) { transition-delay: 130ms; }
+  .js .menu-aberto a:nth-child(4) { transition-delay: 165ms; }
+  .js .menu-aberto a:nth-child(5) { transition-delay: 200ms; }
+  .js .menu-aberto a:nth-child(6) { transition-delay: 235ms; }
+  .js .menu-aberto a:nth-child(7) { transition-delay: 270ms; }
+
+  .menu .btn {
+    margin-top: var(--e-3);
+    width: 100%;
+    border-bottom-color: transparent;
+  }
+  /* `.menu a` é mais específico que `.btn-principal` e pintava o texto do
+     botão de grafite sobre o ouro escuro. */
+  .menu .btn-principal,
+  .menu .btn-principal:hover { color: var(--areia); }
+
+  /* O traçado do ícone vira X pelo JS (o cabeçalho se repete em trinta
+     arquivos, então trocar de <svg> no HTML sairia caro). */
 }
 
 /* ============================ WHATSAPP FLUTUANTE ============================ */
@@ -640,16 +710,13 @@
 @layer secoes {
 
   /* ---------- hero ---------- */
+  /* A foto (e, quando chegar, o vídeo) não é mais um retângulo ao lado do
+     texto: ocupa a faixa de fundo à direita e se dissolve para dentro da
+     areia, como nas faixas "É conhecido o medo" e "Três décadas". O
+     maquinário é o de .secao-retrato/.retrato-dir; aqui vão só os ajustes
+     de proporção, que no hero são outros. */
   .hero {
     padding-block: clamp(3rem, 7vw, 6rem) var(--e-secao);
-  }
-  .hero-grade {
-    display: grid;
-    gap: clamp(2.5rem, 6vw, 5rem);
-    align-items: center;
-  }
-  @media (min-width: 900px) {
-    .hero-grade { grid-template-columns: 1.05fr 1fr; }
   }
   .hero h1 { max-width: 18ch; margin-bottom: var(--e-3); }
   .hero-lead {
@@ -658,16 +725,43 @@
     max-width: 46ch;
     margin-bottom: var(--e-4);
   }
-  .hero-midia { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
-  .hero-midia img,
-  .hero-midia video { width: 100%; height: 100%; object-fit: cover; }
-  .hero-nota {
-    margin-top: var(--e-3);
-    font-size: var(--t-eyebrow);
-    font-family: var(--f-corpo);
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--grafite);
+  .hero-fundo img,
+  .hero-fundo video { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (min-width: 900px) {
+    /* A coluna de texto é mais larga que a das outras faixas: aqui ela
+       carrega manchete, parágrafo e dois botões, não uma citação. */
+    .hero.retrato-dir .retrato-texto { width: 47%; }
+    .hero.retrato-dir .retrato-fundo { width: 64%; }
+    /* Ele está à esquerda do centro na foto, então a rampa abre mais cedo
+       que a das outras faixas: sem isso o rosto cairia justamente na parte
+       que se apaga. O opaco começa depois da coluna de texto assim mesmo. */
+    .hero.retrato-dir .retrato-fundo img,
+    .hero.retrato-dir .retrato-fundo video {
+      object-position: 20% 24%;
+      -webkit-mask-image: linear-gradient(to right, transparent 0 6%, rgba(0,0,0,.5) 30%, #000 58%);
+      mask-image: linear-gradient(to right, transparent 0 6%, rgba(0,0,0,.5) 30%, #000 58%);
+    }
+  }
+
+  /* Empilhado, a faixa vem depois do texto (é a ordem do HTML) e se dissolve
+     nas duas pontas: a de cima para não deixar um corte reto logo abaixo do
+     botão, a de baixo para entregar a página à faixa seguinte. */
+  @media (max-width: 899px) {
+    .hero { padding-bottom: 0; }
+    .hero.retrato-dir .retrato-fundo {
+      height: clamp(18rem, 68vw, 26rem);
+      margin-top: var(--e-4);
+      margin-bottom: 0;
+    }
+    .hero.retrato-dir .retrato-fundo img,
+    .hero.retrato-dir .retrato-fundo video {
+      object-position: 42% 22%;
+      /* Só a ponta de cima se dissolve, para não deixar corte reto embaixo
+         do botão. Embaixo a foto vai inteira até a borda da faixa. */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24%, #000 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 24%, #000 100%);
+    }
   }
 
   /* ---------- quando procurar ----------
@@ -899,6 +993,41 @@
      para que nenhuma letra caia sobre pixel de foto. */
   .secao-retrato { position: relative; overflow: clip; }
 
+  /* ---- grão ----
+     Uma camada de ruído sobre a faixa inteira, foto e fundo chapado juntos.
+     Serve a dois fins: dá textura a um fundo que era cor pura e disfarça a
+     emenda da máscara, onde a foto vira fundo.
+
+     O ruído é gerado no próprio CSS (feTurbulence num data URI), então não
+     custa requisição nem arquivo. O `feComponentTransfer` estica o
+     contraste do ruído: sem ele o grão é uma névoa cinzenta que escurece
+     tudo por igual; com ele vira grão de verdade, quase todo transparente
+     com pontos escuros esparsos, e é isso que deixa a textura visível sem
+     mexer muito no tom.
+
+     `multiply`, e não `soft-light`: sobre uma base quase branca (#FBFBFB) o
+     soft-light satura, o desvio medido não passava de dois níveis e a
+     textura não aparecia. Multiply só escurece, o que também é o que mantém
+     o texto claro da faixa dourada dentro da faixa segura de contraste. */
+  .secao-retrato::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.4' intercept='-.7'/%3E%3CfeFuncG type='linear' slope='2.4' intercept='-.7'/%3E%3CfeFuncB type='linear' slope='2.4' intercept='-.7'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    mix-blend-mode: multiply;
+    opacity: .11;
+  }
+  /* A faixa dourada é meio-tom e aguenta mais grão antes de aparecer como
+     mudança de cor. */
+  .secao-medo::after { opacity: .2; }
+  /* O grão é irmão do texto e, por ser posicionado, pintaria por cima dele.
+     A coluna sobe uma camada: assim o ruído fica só no fundo e na foto. */
+  .secao-retrato > .contem { position: relative; z-index: 1; }
+
+
   .retrato-fundo {
     position: absolute;
     inset: 0;
@@ -945,8 +1074,16 @@
       -webkit-mask-image: linear-gradient(to bottom, #000 0 46%, rgba(0,0,0,.45) 74%, transparent 100%);
       mask-image: linear-gradient(to bottom, #000 0 46%, rgba(0,0,0,.45) 74%, transparent 100%);
     }
-    /* o retrato é 2:3; virando paisagem no mobile, o corte come a testa */
-    .retrato-esq .retrato-fundo img { object-position: 50% 5%; }
+    /* O retrato é 2:3. Numa calha larga e baixa o `cover` mostrava só uma
+       faixa da altura da foto, e a dissolução começava logo abaixo do queixo:
+       lia-se como recorte no pescoço. A calha do "Três décadas" fica mais
+       alta e a rampa desce para o jaleco, então o que se apaga é o tronco. */
+    .retrato-esq .retrato-fundo { height: clamp(25rem, 104vw, 34rem); }
+    .retrato-esq .retrato-fundo img {
+      object-position: 50% 0%;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0 66%, rgba(0,0,0,.45) 86%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0 66%, rgba(0,0,0,.45) 86%, transparent 100%);
+    }
   }
 
   /* ---------- currículo em cartões ---------- */
@@ -1053,6 +1190,79 @@
   .faixa-cta p  { max-width: 52ch; margin-bottom: var(--e-4); }
 
   /* ---------- contato ---------- */
+  /* ---------- cartão do WhatsApp ---------- */
+  /* O agendamento é o único caminho de conversão da página, e como linha de
+     lista ele tinha o mesmo peso do CEP. Aqui vira superfície cheia: o ouro
+     escuro é o mesmo do botão principal, então o bloco lê como botão grande
+     sem repetir um botão logo abaixo. Texto em areia, nunca em ouro. */
+  .zap-cartao {
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    padding: var(--e-3) var(--e-4);
+    margin-bottom: var(--e-4);
+    border-radius: 18px;
+    background: var(--ouro-fundo);
+    color: var(--areia);
+    transition: background-color var(--dur-media) var(--ease),
+                transform var(--dur-rapida) var(--ease);
+  }
+  .zap-cartao:hover { background: var(--tinta); }
+  .zap-cartao:active { transform: translateY(1px); }
+
+  .zap-cartao-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(251, 251, 251, .14);
+  }
+  .zap-cartao-icone svg { width: 28px; height: 28px; fill: var(--areia); }
+
+  .zap-cartao-texto { display: block; min-width: 0; }
+  .zap-cartao-rotulo {
+    display: block;
+    font-family: var(--f-corpo);
+    font-weight: 700;
+    font-size: var(--t-eyebrow);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    /* areia quente: 4,98:1 sobre o ouro escuro */
+    color: var(--areia-quente);
+  }
+  .zap-cartao-numero {
+    display: block;
+    font-family: var(--f-corpo);
+    font-weight: 600;
+    font-size: clamp(1.375rem, 4.5vw, 1.75rem);
+    line-height: 1.2;
+    margin-top: .2rem;
+  }
+  .zap-cartao-nota {
+    display: block;
+    margin-top: .3rem;
+    text-wrap: pretty;
+    font-size: var(--t-peq);
+    color: var(--areia-quente);
+  }
+  .zap-cartao-seta {
+    flex: none;
+    width: 22px; height: 22px;
+    stroke: currentColor; fill: none; stroke-width: 1.6;
+    stroke-linecap: round; stroke-linejoin: round;
+    transition: transform var(--dur-media) var(--ease);
+  }
+  .zap-cartao:hover .zap-cartao-seta { transform: translateX(4px); }
+
+  @media (max-width: 419px) {
+    .zap-cartao { padding: var(--e-3); gap: .875rem; }
+    .zap-cartao-icone { width: 44px; height: 44px; }
+    .zap-cartao-icone svg { width: 24px; height: 24px; }
+    .zap-cartao-seta { display: none; }
+  }
+
   .contato-dados { display: grid; gap: var(--e-4); }
   .dado-rotulo {
     display: block;
@@ -1073,10 +1283,18 @@
   @media (min-width: 800px) { .mapa { aspect-ratio: 1 / 1; } }
 
   /* ---------- rodapé ---------- */
-  .rodape { background: var(--tinta); color: rgba(251, 251, 251, .70); padding-block: var(--e-6) var(--e-4); }
+  /* `position` + `overflow: clip` são o que a marca d'água pede: ela se
+     posiciona contra o rodapé e sangra para fora da borda direita sem
+     alargar a página. Mesmo arranjo da faixa "Quanto antes você olha". */
+  .rodape {
+    position: relative;
+    overflow: clip;
+    background: var(--tinta);
+    color: rgba(251, 251, 251, .70);
+    padding-block: var(--e-6) var(--e-4);
+  }
   .rodape-grade { display: grid; gap: var(--e-5); grid-template-columns: 1fr; }
   @media (min-width: 800px) { .rodape-grade { grid-template-columns: 1.4fr 1fr 1fr; gap: var(--e-4); } }
-  .rodape img { width: 44px; height: 44px; margin-bottom: var(--e-3); }
   .rodape-nome { font-family: var(--f-corpo); font-weight: 300; font-size: 1.75rem; color: var(--areia); line-height: 1.1; }
   .rodape-nome strong { font-family: var(--f-corpo); font-weight: 800; color: var(--areia); }
   .rodape h3 {
@@ -1191,6 +1409,9 @@
   .js .surge { opacity: 1; transform: none; }
   .js .cartao::before { transform: none; background: var(--linha); }
   .js .surge-passo .passo-selo { transform: none; opacity: 1; }
+  /* o bloco acima zera durações, não atrasos: sem isto o último item do menu
+     ainda esperaria 270ms para aparecer */
+  .js .menu-aberto a { transition-delay: 0s !important; }
 
   /* Exceção deliberada: o fio não é animação, é leitura de posição.
      Ele não se move sozinho — só reflete onde a rolagem está, que é um

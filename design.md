@@ -1,4 +1,4 @@
-# Identidade visual — Dr. Norton Luiz Nóbrega
+# Identidade visual — Norton Luiz Nóbrega
 
 Documento de referência do site. Define cor, tipografia, espaço, movimento, fotografia e voz. Se uma decisão não estiver aqui, ela ainda não foi tomada.
 
@@ -134,7 +134,7 @@ O símbolo é um traço contínuo, desenhado à mão, do cólon. É o único ati
 **Não existe versão com tipografia.** O lockup é montado: símbolo + nome em Open Sans.
 
 ```
-┌─────┐  Dr. Norton Luiz Nóbrega        ← Open Sans SemiBold 600
+┌─────┐  Norton Luiz Nóbrega        ← Open Sans SemiBold 600
 │ ~~~ │  COLOPROCTOLOGISTA · CRM-PR 12.440   ← Bold 700, caixa alta, ouro
 └─────┘
   40px    respiro à esquerda: 16px

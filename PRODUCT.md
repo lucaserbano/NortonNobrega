@@ -1,4 +1,4 @@
-# Dr. Norton Luiz Nóbrega
+# Norton Luiz Nóbrega
 
 Site institucional e blog de um coloproctologista em Curitiba, com mais de 30 anos de consultório.
 

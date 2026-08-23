@@ -27,22 +27,39 @@
   var botaoMenu = document.querySelector(".btn-menu");
   var menu = document.querySelector(".menu");
   if (botaoMenu && menu) {
+    var tracoMenu = botaoMenu.querySelector("svg path");
+    var TRACO_BARRAS = "M3 6h18M3 12h18M3 18h18";
+    var TRACO_X = "M6 6l12 12M18 6L6 18";
+    var desenharIcone = function (aberto) {
+      if (tracoMenu) tracoMenu.setAttribute("d", aberto ? TRACO_X : TRACO_BARRAS);
+    };
+
+    var fecharMenu = function (devolverFoco) {
+      if (!menu.classList.contains("menu-aberto")) return;
+      menu.classList.remove("menu-aberto");
+      botaoMenu.setAttribute("aria-expanded", "false");
+      botaoMenu.setAttribute("aria-label", "Abrir menu");
+      desenharIcone(false);
+      if (devolverFoco) botaoMenu.focus();
+    };
+
     botaoMenu.addEventListener("click", function () {
       var aberto = menu.classList.toggle("menu-aberto");
       botaoMenu.setAttribute("aria-expanded", String(aberto));
+      botaoMenu.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+      desenharIcone(aberto);
     });
     menu.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
-        menu.classList.remove("menu-aberto");
-        botaoMenu.setAttribute("aria-expanded", "false");
-      }
+      if (e.target.closest("a")) fecharMenu(false);
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menu.classList.contains("menu-aberto")) {
-        menu.classList.remove("menu-aberto");
-        botaoMenu.setAttribute("aria-expanded", "false");
-        botaoMenu.focus();
-      }
+      if (e.key === "Escape") fecharMenu(true);
+    });
+    /* O painel passou a pairar sobre a página, então tocar no conteúdo por
+       baixo tem que fechá-lo. Cliques dentro do topo (o próprio botão, o
+       painel) não contam: quem cuida deles são os dois ouvintes acima. */
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".topo")) fecharMenu(false);
     });
   }
 
@@ -135,15 +152,38 @@
   }
 
   /* ---------------------------------------------------------------
-     Botão flutuante do WhatsApp: sai de cena sobre a seção de contato,
-     para não cobrir o mapa e os dados.
+     Botão flutuante do WhatsApp. Duas razões para ele sumir:
+
+     1. No topo da página ele seria o terceiro botão com a mesma frase à
+        vista ao mesmo tempo (o do cabeçalho, o do hero e ele). Só entra
+        depois que a primeira tela sai de cena, quando os outros dois já
+        não estão mais lá.
+     2. Sobre a seção de contato ele cobriria o mapa e os dados.
      --------------------------------------------------------------- */
   var zap = document.querySelector(".zap");
-  var contato = document.getElementById("contato");
-  if (zap && contato && "IntersectionObserver" in window) {
-    new IntersectionObserver(function (entradas) {
-      zap.classList.toggle("zap-oculto", entradas[0].isIntersecting);
-    }, { threshold: 0.25 }).observe(contato);
+  if (zap) {
+    var contato = document.getElementById("contato");
+    var sobreContato = false;
+    var noTopo = true;
+
+    var atualizarZap = function () {
+      zap.classList.toggle("zap-oculto", noTopo || sobreContato);
+    };
+    var medirTopo = function () {
+      noTopo = window.scrollY < window.innerHeight * 0.85;
+      atualizarZap();
+    };
+
+    medirTopo();
+    window.addEventListener("scroll", medirTopo, { passive: true });
+    window.addEventListener("resize", medirTopo, { passive: true });
+
+    if (contato && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entradas) {
+        sobreContato = entradas[0].isIntersecting;
+        atualizarZap();
+      }, { threshold: 0.25 }).observe(contato);
+    }
   }
 
   /* ---------------------------------------------------------------

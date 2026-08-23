@@ -21,7 +21,7 @@ const BLOG = join(RAIZ, "blog");
 
 const SITE = "https://www.nortonnobrega.com.br";
 const ZAP = "5541998068000";
-const MEDICO = "Dr. Norton Luiz Nóbrega";
+const MEDICO = "Norton Luiz Nóbrega";
 const REGISTRO = "CRM-PR 12.440 · RQE 5531";
 
 /* ------------------------------------------------------------------ */
@@ -123,14 +123,35 @@ ${extra}</head>
 
 /* ---------------------------- rodapé ---------------------------- */
 
+/* O convite do fim do artigo muda com o grupo. "Está com esse quadro?" só
+   faz sentido em doença: num texto de exame ou de orientação, a pergunta não
+   descreve quem está lendo. */
+const CTA = {
+  doencas: {
+    titulo: "Está com esse quadro?",
+    texto: "Cada caso é diferente e só o exame permite distinguir causas parecidas. Agende pelo WhatsApp, direto com a secretária.",
+  },
+  exames: {
+    titulo: "Precisa fazer esse exame?",
+    texto: "Na consulta eu avalio se o exame está indicado para o seu caso e explico o preparo. Se você já fez exames relacionados à queixa, leve-os ao consultório.",
+  },
+  dicas: {
+    titulo: "Ficou com alguma dúvida?",
+    texto: "Um texto informa até certo ponto: o que vale para você depende de examinar você. Agende pelo WhatsApp, direto com a secretária.",
+  },
+};
+
 function rodape() {
   return `
 <footer class="rodape">
+  <!-- Marca d'água em branco, encostada na borda direita. Decorativa,
+       igual à da faixa "Quanto antes você olha". -->
+  <img class="marca-dagua" src="../assets/marca/marca-dagua-branca.webp" alt="" aria-hidden="true"
+       width="1200" height="1355" loading="lazy" decoding="async">
   <div class="contem">
     <div class="rodape-grade">
       <div>
-        <img src="../assets/marca/simbolo-branco-96.png" alt="" width="44" height="44">
-        <p class="rodape-nome"><strong>Dr. Norton Luiz Nóbrega</strong></p>
+        <p class="rodape-nome"><strong>Norton Luiz Nóbrega</strong></p>
         <p style="margin-top: var(--e-2); font-size: var(--t-peq)">
           Coloproctologia: cirurgia e doenças clínicas do intestino grosso, do reto e do ânus.
         </p>
@@ -218,7 +239,7 @@ ${s.p.map((t) => `        <p>${esc(t)}</p>`).join("\n")}
     .slice(0, 3);
 
   const blocoRelacionados = relacionados.length ? `
-<section class="secao" aria-labelledby="relacionados">
+<section class="secao secao-nevoa" aria-labelledby="relacionados">
   <div class="contem">
     <p class="eyebrow">Leia também</p>
     <h2 id="relacionados" class="so-leitor">Artigos relacionados</h2>
@@ -234,6 +255,7 @@ ${relacionados.map((r) => `      <a class="cartao surge surge-cartao" href="${r.
 </section>` : "";
 
   const msg = `Olá! Li a página sobre ${post.titulo} e gostaria de agendar uma consulta.`;
+  const cta = CTA[post.grupo] || CTA.doencas;
 
   return cabeca({ titulo: tituloPagina, descricao: post.resumo, url, extra: jsonld }) + `
 <main id="conteudo" class="envoltorio">
@@ -262,11 +284,8 @@ ${MARCA_DAGUA}
     </div>
 
     <aside class="artigo-cta">
-      <h2>Está com esse quadro?</h2>
-      <p>
-        Cada caso é diferente e só o exame permite distinguir causas parecidas.
-        Agende pelo WhatsApp, direto com a secretária.
-      </p>
+      <h2>${esc(cta.titulo)}</h2>
+      <p>${esc(cta.texto)}</p>
       <a class="btn btn-principal" href="${zap(msg)}" target="_blank" rel="noopener">
         ${ICONE_ZAP}
         Agendar consulta no WhatsApp

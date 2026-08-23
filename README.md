@@ -1,4 +1,4 @@
-# Site — Dr. Norton Luiz Nóbrega, coloproctologista
+# Site — Norton Luiz Nóbrega, coloproctologista
 
 Site institucional e blog. HTML, CSS e JavaScript puros: **não há build, não há
 dependência, não há `npm install` para publicar.** Os arquivos que estão no

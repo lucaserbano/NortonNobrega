@@ -176,14 +176,23 @@
   }
 
   /* ---------------------- CTA do fim do artigo ----------------------
-     Mesma calha do corpo, para o convite cair na coluna do texto e não
-     parecer um bloco avulso colado no fim. */
+     Mantém a calha do corpo, para o convite cair na coluna do texto, mas em
+     superfície própria: separado só por um fio, ele tinha o mesmo peso de
+     mais uma seção do artigo, e o leitor passava direto. Escuro é o registro
+     de ênfase do site (a capa do artigo e a faixa de agendamento da home
+     usam o mesmo fundo). */
   .artigo-cta {
-    margin-top: clamp(.75rem, 2vw, 1.5rem);
-    padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
-    border-top: 1px solid var(--linha-forte);
+    margin-top: var(--e-5);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 18px;
+    background: var(--tinta);
+    color: rgba(251, 251, 251, .86);
   }
-  .artigo-cta h2 { font-size: clamp(1.3rem, 2vw, 1.65rem); margin-bottom: var(--e-2); }
+  .artigo-cta h2 {
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    margin-bottom: var(--e-2);
+    color: var(--areia);
+  }
   .artigo-cta p  { margin-bottom: var(--e-3); max-width: 58ch; }
 
   @media (min-width: 900px) {
@@ -206,7 +215,10 @@
     line-height: 1.6;
   }
 
-  /* "Leia também" já vem com o respiro da seção; o artigo não precisa
-     repetir o dele em cima. */
+  /* "Leia também" ganhou fundo próprio: são três coisas diferentes em
+     sequência (o texto, o convite, as outras matérias) e antes as três
+     vinham na mesma areia. Com faixa pintada ela precisa do respiro de
+     volta em cima, senão o fundo começa colado no fim do artigo. */
   .artigo + .secao { padding-top: 0; }
+  .artigo + .secao-nevoa { padding-top: var(--e-secao); }
 }
