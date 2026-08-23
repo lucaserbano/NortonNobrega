@@ -12,5 +12,13 @@ assets/Fotos_originais/
 assets/Texto_original/
 assets/ID_visual/
 
+# Ferramental de agente — não tem relação com o site e, como o Pages serve a
+# raiz do repositório, subir isto publicaria os scripts junto.
+.agents/
+
+# Logo da SBCP: material de origem, não referenciado por nenhuma página.
+# Se um dia entrar no site, tirar daqui e versionar a versão otimizada.
+assets/SBCP-logo.png
+
 # Ferramentas
 node_modules/

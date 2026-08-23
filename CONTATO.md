@@ -1,130 +1,51 @@
 # Dados que faltam para o site ir ao ar
 
-O site está pronto e funcionando, mas com **dados de contato falsos**. Eles são
-propositalmente óbvios (`(41) 0000-0000`, `Rua a confirmar, 000`) para que ninguém
-publique sem perceber.
-
-Cada item abaixo tem o comando exato de substituição. Rode-os na raiz do projeto.
-
-> Os comandos usam `sed -i ''`, que é a sintaxe do macOS. No Linux, use `sed -i`
-> (sem as aspas).
+Os dados de contato **já foram preenchidos** em 23/08/2026. O que sobrou de
+pendente está listado abaixo, na ordem em que importa.
 
 ---
 
-## 1. Número do WhatsApp — o mais importante
+## Já preenchido (não precisa mexer)
 
-É o que converte o site inteiro. Aparece em **33 arquivos** (a home e os 29 artigos).
+| Dado | Valor no site |
+|---|---|
+| WhatsApp | `5541998068000`, exibido como **(41) 99806-8000**. Está nos 33 arquivos e no JSON-LD |
+| Endereço | Coloprocto DOC, Avenida Visconde de Guarapuava, 4628, salas 709 e 710, Batel, Curitiba/PR |
+| Atendimento | Segunda a sexta, das 8h às 12h e das 14h às 18h |
+| Mapa | Query já apontada para o endereço real, com zoom 17 |
 
-Formato: DDI + DDD + número, sem espaços, sem símbolos. Exemplo para Curitiba:
-`5541988887777`.
-
-```bash
-grep -rl '5541999999999' . --exclude-dir=.git \
-  | xargs sed -i '' 's/5541999999999/SEU_NUMERO_AQUI/g'
-```
-
-O mesmo número também aparece formatado, para leitura, na seção de contato:
-
-```bash
-sed -i '' 's/(41) 99999-9999/(41) 98888-7777/g' index.html
-```
-
-Depois de trocar, confira uma página: `grep -c '5541999999999' index.html` deve
-retornar `0`.
+**Telefone fixo e e-mail foram removidos** do site a pedido: não aparecem mais na
+seção de contato nem no rodapé. Se um dia voltarem, é um bloco `<div>` dentro de
+`.contato-dados` em `index.html` e um `<li>` na coluna "Contato" do rodapé, que
+mora em `tools/gerar-posts.mjs` para as páginas do blog.
 
 ---
 
-## 2. Telefone fixo
+## 1. CEP do consultório — pendente
 
-```bash
-grep -rl '(41) 0000-0000' . --exclude-dir=.git \
-  | xargs sed -i '' 's/(41) 0000-0000/(41) 3333-4444/g'
-
-grep -rl '+554100000000' . --exclude-dir=.git \
-  | xargs sed -i '' 's/+554100000000/+554133334444/g'
-```
-
-O segundo é o `href="tel:"` — precisa ficar sem espaços nem símbolos.
-
----
-
-## 3. E-mail
-
-```bash
-grep -rl 'contato@exemplo.com.br' . --exclude-dir=.git \
-  | xargs sed -i '' 's/contato@exemplo.com.br/o-email-real@dominio.com.br/g'
-```
-
----
-
-## 4. Endereço do consultório
-
-Só em `index.html`, em dois lugares. Edite à mão:
-
-**a) O bloco visível** — procure por `Rua a confirmar`:
-
-```html
-<span class="dado-rotulo">Endereço</span>
-<p class="dado-valor">
-  Rua a confirmar, 000 — Sala 00<br>
-  Bairro · Curitiba/PR<br>
-  CEP 00000-000
-</p>
-```
-
-**b) O JSON-LD no `<head>`** — o mesmo endereço, para o Google entender que é um
-consultório em Curitiba. Procure por `"streetAddress"`:
+O CEP não foi informado, então **não está no JSON-LD**. Não inventei nenhum. Ele é
+o campo que mais ajuda o Google a cravar a localização na busca local, e vale
+acrescentar. Em `index.html`, no bloco `"address"` do `<head>`:
 
 ```json
-"address": {
-  "@type": "PostalAddress",
-  "streetAddress": "Rua a confirmar, 000 — Sala 00",
-  "addressLocality": "Curitiba",
-  "addressRegion": "PR",
-  "postalCode": "00000-000",
-  "addressCountry": "BR"
-}
+"addressRegion": "PR",
+"postalCode": "80240-000",
+"addressCountry": "BR"
 ```
 
-Os dois precisam bater. É esse bloco que faz o consultório aparecer na busca local.
+(o CEP acima é só o formato — use o real).
 
 ---
 
-## 5. Mapa
+## 2. Ficha no Google Meu Negócio — vale conferir
 
-Em `index.html`, procure por `maps.google.com`. Troque a query pelo endereço real,
-com `+` no lugar dos espaços:
-
-```html
-<iframe class="mapa"
-        src="https://maps.google.com/maps?q=Rua+Exemplo+123+Curitiba+PR&z=16&output=embed"
-```
-
-Não precisa de chave de API. Se o consultório já tem ficha no Google Meu Negócio,
-use o nome dela na query — o pin fica mais preciso.
+Se o consultório já tem ficha, troque a query do mapa pelo **nome da ficha** em vez
+do endereço: o pin fica mais preciso e o clique leva direto ao perfil. Em
+`index.html`, procure por `maps.google.com`.
 
 ---
 
-## 6. Horário de atendimento
-
-Em `index.html`, dois lugares:
-
-**a) Visível** — procure por `00h00`:
-
-```html
-<p class="dado-valor">Segunda a sexta, das 00h00 às 00h00</p>
-```
-
-**b) JSON-LD** — procure por `openingHoursSpecification`. Formato 24h:
-
-```json
-"opens": "08:00",
-"closes": "18:00"
-```
-
----
-
-## 7. Domínio
+## 3. Domínio
 
 Hoje está `https://www.nortonnobrega.com.br` em 35 arquivos (canonical, Open Graph,
 sitemap). Se o domínio for outro:
@@ -139,7 +60,7 @@ nascerem com o domínio certo.
 
 ---
 
-## 8. O vídeo do hero
+## 4. O vídeo do hero
 
 Quando o arquivo chegar:
 
@@ -166,7 +87,7 @@ mãos, instrumental e o médico em campo funcionam bem e não criam exposição.
 
 ---
 
-## 9. Convênios
+## 5. Convênios
 
 Não há seção de convênios no site. Se o atendimento aceitar planos — ou se for
 exclusivamente particular — vale dizer: é a segunda pergunta que chega no WhatsApp,
@@ -182,3 +103,7 @@ Depois de preencher tudo, este comando não pode retornar nada:
 grep -rn '5541999999999\|0000-0000\|exemplo.com.br\|Rua a confirmar\|00h00\|00000-000' \
   . --exclude-dir=.git --exclude=CONTATO.md
 ```
+
+Hoje ele já não retorna nada. O que ainda falta é o **CEP** (item 1) e o **vídeo do
+hero** (item 4), e nenhum dos dois aparece neste `grep` — o CEP porque foi omitido
+em vez de falseado, e o vídeo porque o bloco está comentado.

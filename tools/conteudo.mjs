@@ -24,7 +24,7 @@ export const posts = [
     titulo: "Hemorroidas",
     grupo: "doencas",
     categoria: "No ânus e no reto",
-    resumo: "Dilatações dos vasos da região anal. Causam dor, inchaço, nódulos, sangramento e exposição à evacuação — e nem sempre exigem cirurgia.",
+    resumo: "Dilatações dos vasos da região anal. Causam dor, inchaço, nódulos, sangramento e exposição à evacuação, e nem sempre exigem cirurgia.",
     corpo: [
       { h: "O que são", p: [
         "Hemorroidas são dilatações de vasos da região anal. Manifestam-se por dor, aumento de volume (inchaço), nódulos (trombos), sangramento e exposição à evacuação.",
@@ -36,8 +36,8 @@ export const posts = [
         "O procedimento de ligadura elástica está indicado no caso de hemorroidas internas. É realizado no próprio consultório, com anestesia local, e provoca pouco desconforto.",
       ]},
       { h: "Quando a cirurgia entra", p: [
-        "Em casos selecionados a cirurgia está indicada — a hemorroidectomia. Existem várias técnicas: a tradicional, com incisão e sutura; o grampeamento (PPH); a desarterialização (THD); e, mais recentemente, técnicas a laser.",
-        "A técnica mais indicada é escolhida pelo médico junto com o paciente, considerando o caso e a rotina de cada um.",
+        "Em casos selecionados a cirurgia está indicada, a chamada hemorroidectomia. Existem várias técnicas: a tradicional, com incisão e sutura; o grampeamento (PPH); a desarterialização (THD); e, mais recentemente, técnicas a laser.",
+        "A técnica mais indicada eu escolho junto com você, considerando o seu caso e a sua rotina.",
       ]},
     ],
   },
@@ -50,7 +50,7 @@ export const posts = [
     resumo: "Ferimento na região anal que causa dor durante e após evacuar, além de sangramento. Raramente precisa de cirurgia.",
     corpo: [
       { h: "O que é", p: [
-        "A fissura anal é um ferimento na região anal que ocorre após trauma local — por exemplo, uma evacuação com fezes muito endurecidas, ou após um episódio de diarreia.",
+        "A fissura anal é um ferimento na região anal que ocorre após trauma local: por exemplo, uma evacuação com fezes muito endurecidas, ou após um episódio de diarreia.",
       ]},
       { h: "Como se manifesta", p: [
         "Caracteriza-se principalmente por dor durante e após evacuar, e por sangramento. A dor costuma ser em queimação e pode persistir por minutos ou horas depois da evacuação.",
@@ -176,7 +176,7 @@ export const posts = [
     titulo: "Câncer colorretal",
     grupo: "doencas",
     categoria: "No intestino grosso",
-    resumo: "O segundo câncer mais frequente em homens e mulheres após os 50 anos — e um dos poucos que pode ser evitado por meio de um exame.",
+    resumo: "O segundo câncer mais frequente em homens e mulheres após os 50 anos, e um dos poucos que pode ser evitado por meio de um exame.",
     corpo: [
       { h: "O que é", p: [
         "É o segundo câncer mais frequente em homens e mulheres após os 50 anos. Em sua grande maioria, provém da transformação maligna de pólipos.",
@@ -195,7 +195,7 @@ export const posts = [
     titulo: "Pólipos intestinais",
     grupo: "doencas",
     categoria: "No intestino grosso",
-    resumo: "Agrupamentos de células na parede interna do intestino. Inofensivos no início — e é por isso que a colonoscopia importa.",
+    resumo: "Agrupamentos de células na parede interna do intestino. Inofensivos no início, e é por isso que a colonoscopia importa.",
     corpo: [
       { h: "O que são", p: [
         "Pólipos são agrupamentos de células na mucosa, a parede interna do intestino. Inicialmente são inofensivos e não provocam sintomas.",
@@ -217,7 +217,7 @@ export const posts = [
         "É a presença de saculações nas paredes dos cólons. É assintomática na maior parte dos pacientes.",
       ]},
       { h: "Quando dá sintomas", p: [
-        "Na minoria que apresenta sintomas, estes são de dor e inflamação — a diverticulite. A simples presença dos divertículos não exige tratamento, mas a partir do início dos sintomas, sim.",
+        "Na minoria que apresenta sintomas, estes são de dor e inflamação, a chamada diverticulite. A simples presença dos divertículos não exige tratamento, mas a partir do início dos sintomas, sim.",
       ]},
       { h: "Cirurgia", p: [
         "Raros são os casos que necessitam colectomia, a remoção da parte do cólon comprometida. A cirurgia pode ser realizada de forma tradicional (aberta) ou videolaparoscópica.",
@@ -253,7 +253,7 @@ export const posts = [
     resumo: "Alteração funcional do intestino, bastante comum: dor abdominal, distensão e mudança no hábito intestinal.",
     corpo: [
       { h: "O que é", p: [
-        "É um quadro bastante comum de alteração funcional do intestino, com dor abdominal, distensão e alteração no hábito intestinal — com obstipação ou diarreia.",
+        "É um quadro bastante comum de alteração funcional do intestino, com dor abdominal, distensão e alteração no hábito intestinal, com obstipação ou diarreia.",
       ]},
       { h: "Investigação", p: [
         "Necessita de investigação para afastamento de outros quadros de doença orgânica. O diagnóstico não se faz por exclusão apressada.",
@@ -285,7 +285,7 @@ export const posts = [
     titulo: "Incontinência fecal",
     grupo: "doencas",
     categoria: "No intestino grosso",
-    resumo: "Perda involuntária de gases ou fezes. Compromete a autoestima e a independência — e tem tratamento, que nem sempre é cirúrgico.",
+    resumo: "Perda involuntária de gases ou fezes. Compromete a autoestima e a independência, e tem tratamento, que nem sempre é cirúrgico.",
     corpo: [
       { h: "O que é", p: [
         "É a perda involuntária de gases ou fezes. Quase sempre acontece em mulheres idosas que tiveram várias gestações, partos via vaginal, trabalhos de parto prolongados e fetos que nasceram com mais de 3,5 kg.",
@@ -313,7 +313,7 @@ export const posts = [
         "Provoca sintomas de massa que se exterioriza aos esforços, e pode causar dor, sangramento e umidade local.",
       ]},
       { h: "Tratamento", p: [
-        "Quando são só mucosos, podem ser tratados por ligadura elástica ou ressecção cirúrgica. Quando envolvem todas as camadas do reto, exigem cirurgia — que pode ser realizada pelo abdome ou exclusivamente pelo períneo.",
+        "Quando são só mucosos, podem ser tratados por ligadura elástica ou ressecção cirúrgica. Quando envolvem todas as camadas do reto, exigem cirurgia, que pode ser realizada pelo abdome ou exclusivamente pelo períneo.",
       ]},
     ],
   },
@@ -353,7 +353,7 @@ export const posts = [
         "É indolor e realizado no próprio consultório médico. Este exame pode ser realizado quase sempre na primeira consulta, sem preparo complicado e sem sedação.",
       ]},
       { h: "Quando é indicado", p: [
-        "Indicado para avaliar pacientes com queixas mais distais — isto é, mais próximas do ânus.",
+        "Indicado para avaliar pacientes com queixas mais distais, isto é, mais próximas do ânus.",
       ]},
     ],
   },
@@ -366,7 +366,7 @@ export const posts = [
     resumo: "Estuda a função dos esfíncteres e a sensibilidade do reto. Útil na incontinência fecal, em alguns tipos de constipação e nas dores pélvicas.",
     corpo: [
       { h: "O que avalia", p: [
-        "É o exame para estudo da função dos esfíncteres — os músculos responsáveis pela capacidade de conter as fezes e os gases — e da sensibilidade do reto.",
+        "É o exame para estudo da função dos esfíncteres, os músculos responsáveis pela capacidade de conter as fezes e os gases, e também da sensibilidade do reto.",
       ]},
       { h: "Quando é indicada", p: [
         "É útil no estudo dos quadros de incontinência fecal, de alguns tipos de constipação intestinal (como a evacuação obstruída) e de dores pélvicas.",
@@ -388,7 +388,7 @@ export const posts = [
         "É utilizada na investigação da dor abdominal, de sangramentos, de diarreia e de obstipação; na análise após exame de sangue oculto nas fezes positivo; na suspeita de câncer colorretal; e na prevenção do câncer colorretal.",
       ]},
       { h: "O papel na prevenção", p: [
-        "Além de diagnosticar, a colonoscopia permite remover pólipos durante o próprio exame — interrompendo o caminho que levaria ao câncer.",
+        "Além de diagnosticar, a colonoscopia permite remover pólipos durante o próprio exame, interrompendo o caminho que levaria ao câncer.",
       ]},
     ],
   },
@@ -417,7 +417,7 @@ export const posts = [
     resumo: "Marcadores radiopacos acompanhados por raio-X. Para a constipação que não responde às terapias mais comuns.",
     corpo: [
       { h: "Como é feito", p: [
-        "O exame é realizado por meio da ingestão de marcadores radiopacos — que conseguem ser vistos em um exame de raio-X do abdome — e do seu acompanhamento até serem eliminados.",
+        "O exame é realizado por meio da ingestão de marcadores radiopacos, que conseguem ser vistos em um exame de raio-X do abdome, e do seu acompanhamento até serem eliminados.",
       ]},
       { h: "Quando é indicado", p: [
         "É útil na avaliação de quadros de obstipação intestinal que não respondem a terapias mais comumente utilizadas.",
@@ -438,11 +438,11 @@ export const posts = [
         "É conhecido o medo, a resistência e a vergonha da exposição na consulta ao coloproctologista. Muitas vezes os pacientes sofrem por longos períodos e gastam com medicamentos inadequados e mal indicados.",
       ]},
       { h: "Como a consulta é conduzida", p: [
-        "A consulta é realizada de forma profissional e respeitosa, levando em conta os fatores emocionais que levam a postergar e adiar este tipo de avaliação.",
-        "O exame proctológico, que frequentemente desperta muita insegurança, é realizado de forma a deixar o paciente bastante relaxado e confortável, em um ambiente calmo e de inteira privacidade.",
+        "Conduzo a consulta de forma profissional e respeitosa, levando em conta os fatores emocionais que levam a postergar e adiar este tipo de avaliação.",
+        "O exame proctológico, que frequentemente desperta muita insegurança, eu faço de forma a deixar você bastante relaxado e confortável, em um ambiente calmo e de inteira privacidade.",
       ]},
       { h: "O custo de esperar", p: [
-        "A maior parte das queixas atendidas em coloproctologia é benigna e tem tratamento simples quando avaliada a tempo. O adiamento é que costuma transformar um problema pequeno em um problema grande.",
+        "A maior parte das queixas que atendo em coloproctologia é benigna e tem tratamento simples quando avaliada a tempo. O adiamento é que costuma transformar um problema pequeno em um problema grande.",
       ]},
     ],
   },
@@ -516,7 +516,7 @@ export const posts = [
     titulo: "Hábitos de vida e saúde do intestino",
     grupo: "dicas",
     categoria: "Dicas",
-    resumo: "Dieta com pouca gordura animal, pouco açúcar e rica em fibras — mais exercício, peso, álcool, tabaco e sono.",
+    resumo: "Dieta com pouca gordura animal, pouco açúcar e rica em fibras, mais exercício, peso, álcool, tabaco e sono.",
     corpo: [
       { h: "Alimentação", p: [
         "Dieta adequada, com pouca gordura animal, pouco açúcar e rica em fibras, pode auxiliar na boa saúde do intestino.",

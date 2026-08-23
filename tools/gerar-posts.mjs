@@ -20,7 +20,7 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BLOG = join(RAIZ, "blog");
 
 const SITE = "https://www.nortonnobrega.com.br";
-const ZAP = "5541999999999";
+const ZAP = "5541998068000";
 const MEDICO = "Dr. Norton Luiz Nóbrega";
 const REGISTRO = "CRM-PR 12.440 · RQE 5531";
 
@@ -65,7 +65,7 @@ function cabeca({ titulo, descricao, url, extra = "" }) {
 <link rel="apple-touch-icon" href="../assets/marca/apple-touch-icon.png">
 <meta name="theme-color" content="#FBFBFB">
 
-<link rel="preload" href="../assets/fonts/open-sans-cd-300.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/open-sans-300.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/open-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/site.css">
 <link rel="stylesheet" href="../assets/css/blog.css">
@@ -77,7 +77,7 @@ ${extra}</head>
 <header class="topo">
   <div class="contem">
     <div class="topo-linha">
-      <a class="marca" href="../" aria-label="${esc(MEDICO)} — página inicial">
+      <a class="marca" href="../" aria-label="${esc(MEDICO)}, página inicial">
         <img src="../assets/marca/simbolo-96.png" alt="" width="40" height="40">
         <span>
           <span class="marca-nome">${esc(MEDICO)}</span>
@@ -124,9 +124,9 @@ function rodape() {
     <div class="rodape-grade">
       <div>
         <img src="../assets/marca/simbolo-branco-96.png" alt="" width="44" height="44">
-        <p class="rodape-nome">Dr. Norton Luiz <strong>Nóbrega</strong></p>
+        <p class="rodape-nome"><strong>Dr. Norton Luiz Nóbrega</strong></p>
         <p style="margin-top: var(--e-2); font-size: var(--t-peq)">
-          Coloproctologia — cirurgia e doenças clínicas do intestino grosso, do reto e do ânus.
+          Coloproctologia: cirurgia e doenças clínicas do intestino grosso, do reto e do ânus.
         </p>
       </div>
       <div>
@@ -143,8 +143,6 @@ function rodape() {
         <h3>Contato</h3>
         <ul>
           <li><a href="${zap("Olá! Gostaria de agendar uma consulta.")}" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="tel:+554100000000">(41) 0000-0000</a></li>
-          <li><a href="mailto:contato@exemplo.com.br">contato@exemplo.com.br</a></li>
           <li><a href="../#contato">Endereço e mapa</a></li>
         </ul>
       </div>
@@ -175,7 +173,7 @@ function rodape() {
 
 function paginaPost(post, todos) {
   const url = `/blog/${post.slug}.html`;
-  const tituloPagina = `${post.titulo} — ${MEDICO}, coloproctologista em Curitiba`;
+  const tituloPagina = `${post.titulo} · ${MEDICO}, coloproctologista em Curitiba`;
 
   const jsonld = `<script type="application/ld+json">
 ${JSON.stringify({
@@ -219,6 +217,7 @@ ${relacionados.map((r) => `      <a class="cartao surge" href="${r.slug}.html">
         <span class="cartao-marca">${esc(r.categoria)}</span>
         <h3 class="cartao-titulo">${esc(r.titulo)}</h3>
         <p class="cartao-texto">${esc(r.resumo)}</p>
+        <span class="cartao-mais">Ler o artigo</span>
       </a>`).join("\n")}
     </div>
   </div>
@@ -252,7 +251,7 @@ ${relacionados.map((r) => `      <a class="cartao surge" href="${r.slug}.html">
       <h2>Está com esse quadro?</h2>
       <p>
         Cada caso é diferente e só o exame permite distinguir causas parecidas.
-        O agendamento é direto pelo WhatsApp, com a secretária.
+        Agende pelo WhatsApp, direto com a secretária.
       </p>
       <a class="btn btn-principal" href="${zap(msg)}" target="_blank" rel="noopener">
         ${ICONE_ZAP}
@@ -261,7 +260,7 @@ ${relacionados.map((r) => `      <a class="cartao surge" href="${r.slug}.html">
     </aside>
 
     <p class="artigo-aviso">
-      Texto informativo, escrito e revisado por ${esc(MEDICO)}, ${REGISTRO}.
+      Texto informativo, que escrevi e revisei. ${esc(MEDICO)}, ${REGISTRO}.
       Não substitui a consulta médica, o diagnóstico nem o tratamento por profissional habilitado.
     </p>
   </div>
@@ -285,13 +284,14 @@ ${grupos.map((g) => `      <button class="filtro" type="button" data-grupo="${g}
         <span class="cartao-marca">${esc(p.categoria)}</span>
         <h2 class="cartao-titulo">${esc(p.titulo)}</h2>
         <p class="cartao-texto">${esc(p.resumo)}</p>
+        <span class="cartao-mais">Ler o artigo</span>
       </a>`).join("\n");
 
   const jsonld = `<script type="application/ld+json">
 ${JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": `Blog — ${MEDICO}`,
+  "name": `Blog · ${MEDICO}`,
   "url": `${SITE}/blog/`,
   "inLanguage": "pt-BR",
   "blogPost": todos.map((p) => ({
@@ -305,7 +305,7 @@ ${JSON.stringify({
 `;
 
   return cabeca({
-    titulo: `Blog — doenças, exames e prevenção | ${MEDICO}`,
+    titulo: `Blog · doenças, exames e prevenção | ${MEDICO}`,
     descricao: "Doenças do intestino grosso, do reto e do ânus, exames da coloproctologia e orientações de prevenção, explicados em linguagem direta.",
     url: "/blog/",
     extra: jsonld,
@@ -320,6 +320,10 @@ ${JSON.stringify({
       <p class="cabeca-intro surge">
         Doenças, exames e prevenção em coloproctologia, explicados sem jargão.
         Se você reconhecer o seu caso em algum destes textos, já é motivo para consultar.
+      </p>
+      <p class="dica-clique surge">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.2 17.5 12l-4.6.9 2.5 5.3-2.2 1-2.5-5.3-3.7 3z"/></svg>
+        Clique em um artigo para ler na íntegra
       </p>
     </div>
 

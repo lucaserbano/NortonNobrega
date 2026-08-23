@@ -25,7 +25,7 @@ páginas ficam mais confiáveis pelo servidor.
 ## Estrutura
 
 ```
-index.html              landing — 11 seções
+index.html              landing — 12 seções
 design.md               identidade visual: cor, tipografia, movimento, voz
 CONTATO.md              dados pendentes, com o comando de troca de cada um
 sitemap.xml             gerado — não edite à mão
@@ -42,7 +42,7 @@ assets/
   css/blog.css          só o que é específico do blog
   js/site.js            topo, menu, reveal, o fio, botão flutuante
   js/blog.js            filtro do índice
-  fonts/                Open Sans em .woff2, 6 variantes, ~10 KB cada
+  fonts/                Open Sans em .woff2, 5 pesos (300–800), ~10 KB cada
   img/                  fotos em .webp, três larguras cada
   marca/                símbolo, favicons, imagem de compartilhamento
   video/                (vazio — o vídeo do hero entra aqui)

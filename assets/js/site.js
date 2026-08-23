@@ -78,32 +78,59 @@
 
   /* ---------------------------------------------------------------
      O fio: preenche conforme a leitura avança.
+
+     O caminho preferido é CSS puro — `animation-timeline: scroll()` em
+     site.css. Ele roda no compositor do navegador, então acompanha a
+     rolagem quadro a quadro sem passar por aqui. O código abaixo só entra
+     quando o navegador não suporta isso.
+
+     Duas coisas que este trecho NÃO faz mais, de propósito:
+     - não desliga com "reduzir movimento". O fio não se move sozinho, ele
+       reporta onde a leitura está. Desligá-lo tirava o indicador de quem
+       mais depende de referência estável.
+     - não mede `scrollHeight` a cada quadro. Ler altura logo depois de
+       escrever estilo força o navegador a recalcular layout no meio do
+       scroll. A altura agora é medida uma vez e revista quando muda.
      --------------------------------------------------------------- */
   var traco = document.querySelector(".fio-traco");
-  if (traco && typeof traco.getTotalLength === "function") {
-    var total = traco.getTotalLength();
-    traco.style.strokeDasharray = total;
+  var temLinhaDoTempo = window.CSS && CSS.supports &&
+                        CSS.supports("animation-timeline", "scroll()");
 
-    if (semMovimento) {
-      traco.style.strokeDashoffset = 0;
+  if (traco && !temLinhaDoTempo) {
+    // pathLength="1" no SVG: o traço inteiro mede 1, em qualquer navegador.
+    traco.style.strokeDasharray = "1";
+    traco.style.strokeDashoffset = "1";
+
+    var alturaRolavel = 0;
+    var medir = function () {
+      alturaRolavel = document.documentElement.scrollHeight - window.innerHeight;
+    };
+
+    var pendente = false;
+    var desenhar = function () {
+      pendente = false;
+      var p = alturaRolavel > 0
+        ? Math.min(1, Math.max(0, window.scrollY / alturaRolavel))
+        : 1;
+      traco.style.strokeDashoffset = String(1 - p);
+    };
+    var agendar = function () {
+      if (pendente) return;
+      pendente = true;
+      window.requestAnimationFrame(desenhar);
+    };
+
+    medir();
+    desenhar();
+    window.addEventListener("scroll", agendar, { passive: true });
+    window.addEventListener("resize", function () { medir(); agendar(); }, { passive: true });
+
+    // A página cresce depois do load: fonte troca, imagem lazy entra.
+    // Sem isto o fio termina antes ou depois do fim real da página.
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(function () { medir(); agendar(); }).observe(document.documentElement);
     } else {
-      traco.style.strokeDashoffset = total;
-
-      var pendente = false;
-      var desenhar = function () {
-        pendente = false;
-        var altura = document.documentElement.scrollHeight - window.innerHeight;
-        var p = altura > 0 ? Math.min(1, Math.max(0, window.scrollY / altura)) : 1;
-        traco.style.strokeDashoffset = total * (1 - p);
-      };
-      var agendar = function () {
-        if (pendente) return;
-        pendente = true;
-        window.requestAnimationFrame(desenhar);
-      };
-      desenhar();
-      window.addEventListener("scroll", agendar, { passive: true });
-      window.addEventListener("resize", agendar, { passive: true });
+      window.addEventListener("load", function () { medir(); agendar(); });
     }
   }
 

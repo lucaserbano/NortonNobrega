@@ -55,6 +55,19 @@ Todos calculados, não estimados:
 | `--grafite` sobre `--nevoa` | 8,86:1 | AAA |
 | ~~`--ouro` sobre `--areia`~~ | 2,71:1 | **reprova — proibido para texto** |
 
+### O gradiente dourado da faixa "O que costuma travar"
+
+É o único gradiente do site, e existe porque foi pedido: "um gradiente leve entre os dourados da paleta". A restrição é a mesma regra do ouro — `--ouro` (`#C88F4A`) contra `#FBFBFB` dá **2,02:1** sobre o `--ouro-fundo`, então ele não pode ficar atrás de texto em hipótese alguma.
+
+| | Direção | Extremos | Onde o claro cai |
+|---|---|---|---|
+| ≥900px | `to right` | `#8F5C0B` → `--ouro` | depois de 72%, atrás da foto opaca |
+| <900px | `to bottom` | `#8F5C0B` → `#96600D` | em lugar nenhum: tudo passa (mín. 5,11:1) |
+
+**A direção é horizontal de propósito, não diagonal.** Numa diagonal a cor de cada ponto depende também da altura da faixa; no mobile, faixa estreita e alta, o extremo claro descia para trás do texto e o contraste caía a **2,8:1**. Na horizontal a cor depende só do `x`, que é previsível.
+
+Isso não se confere no olho nem na tabela: mede-se o pixel renderizado atrás de cada trecho de texto. Ver §12.
+
 ### O que não usar
 
 Gradiente, sombra colorida, segundo acento, verde de WhatsApp como cor de interface. O botão flutuante do WhatsApp usa `--ouro-fundo` com o glifo em branco — o ícone já o torna reconhecível, e a paleta permanece inteira.
@@ -63,50 +76,53 @@ Gradiente, sombra colorida, segundo acento, verde de WhatsApp como cor de interf
 
 ## 3. Tipografia
 
-Uma família só: **Open Sans**. A hierarquia vem de **contraste de largura e peso**, não de uma segunda fonte.
+Uma família só, num rosto só: **Open Sans**, na largura normal. A hierarquia vem de **peso e tamanho**, não de uma segunda fonte nem de uma segunda largura.
 
-O cliente já tem a superfamília inteira — Regular, SemiCondensed e Condensed, de Light a ExtraBold. Usá-la em três larguras dá uma voz de display própria sem importar nada, e evita a serifada de alto contraste que aparece em todo site de consultório.
+As variantes Condensed e SemiCondensed foram descartadas (agosto de 2026, a pedido do Lucas). Elas davam uma voz de display própria, mas apertavam o texto: o título ocupava menos largura e acabava empilhado num bloco estreito à esquerda, com aparência espremida. A Open Sans normal em Light 300 sustenta o display sozinha, e o texto se distribui com naturalidade.
 
 ### Papéis
 
 | Papel | Fonte | Uso |
 |---|---|---|
-| **Display** | Open Sans Condensed **Light 300** | Títulos grandes. Palavras de ênfase na mesma linha em **Condensed ExtraBold 800** |
+| **Display** | Open Sans **Light 300** | Títulos grandes. Palavras de ênfase na mesma linha em **ExtraBold 800** |
 | **Corpo** | Open Sans **Regular 400** / SemiBold 600 | Texto corrido |
-| **Utilitário** | Open Sans SemiCondensed **Bold 700** | Eyebrows, rótulos, metadados — caixa alta, `letter-spacing: .14em` |
+| **Utilitário** | Open Sans **Bold 700** | Eyebrows, rótulos, metadados, em caixa alta com `letter-spacing: .14em` |
 
-O contraste Light↔ExtraBold **dentro da mesma linha** é a assinatura tipográfica. Uma ênfase por título, no máximo. Se tudo é ênfase, nada é.
+O contraste Light↔ExtraBold **dentro da mesma linha** continua sendo a assinatura tipográfica. Uma ênfase por título, no máximo. Se tudo é ênfase, nada é.
 
 ### Escala
 
-Fluida com `clamp()`, sem breakpoints de tipo.
+Fluida com `clamp()`, sem breakpoints de tipo. Os valores caíram junto com a troca de largura: a Open Sans normal ocupa mais espaço por caractere que a Condensed, e a escala antiga estourava a coluna.
 
 ```css
---t-display: clamp(2.75rem, 7vw,   5.5rem);   /* h1  — Condensed 300, lh .98, ls -.02em */
---t-h2:      clamp(1.9rem,  4vw,   3rem);     /* h2  — Condensed 300, lh 1.05           */
---t-h3:      clamp(1.15rem, 1.4vw, 1.3rem);   /* h3  — SemiCondensed 700                */
---t-lead:    clamp(1.1rem,  1.5vw, 1.3rem);   /* subtítulo do hero — Regular 400, lh 1.6 */
---t-corpo:   1.0625rem;                       /* Regular 400, lh 1.75                   */
+--t-display: clamp(2.35rem, 4.9vw, 4rem);    /* h1, Light 300, lh 1.08, ls -.018em */
+--t-h2:      clamp(1.7rem,  3.2vw, 2.6rem);  /* h2, Light 300, lh 1.15             */
+--t-h3:      clamp(1.15rem, 1.4vw, 1.3rem);  /* h3, Bold 700                       */
+--t-lead:    clamp(1.1rem,  1.5vw, 1.3rem);  /* subtítulo do hero, Regular 400     */
+--t-corpo:   1.0625rem;                      /* Regular 400, lh 1.75               */
 --t-peq:     .9375rem;
---t-eyebrow: .75rem;                          /* SemiCondensed 700, caixa alta, ls .14em */
+--t-eyebrow: .75rem;                         /* Bold 700, caixa alta, ls .14em     */
 ```
 
-Medida máxima do texto corrido: **68ch**. Acima disso o olho perde a linha.
+`h1` e `h2` levam `text-wrap: balance`, e a intro de seção leva `text-wrap: pretty`. É o que impede a última linha órfã e a silhueta em escada que aparecia quando o título tinha medida curta demais.
+
+Medidas máximas: **68ch** no texto corrido, **30ch** nos títulos de seção, **62ch** na intro. A medida vai sempre no próprio elemento, nunca no contêiner: `ch` resolve contra a fonte do elemento em que está escrito.
 
 ### Arquivos
 
-Auto-hospedados em `assets/fonts/`, subsetados em latin, `.woff2`, ~10KB cada. Sem requisição ao Google — mais rápido e melhor para LGPD.
+Auto-hospedados em `assets/fonts/`, subsetados em latin, `.woff2`, ~10KB cada. Sem requisição ao Google, o que é mais rápido e melhor para LGPD.
 
 | Arquivo | Família CSS | Peso |
 |---|---|---|
+| `open-sans-300.woff2` | `Open Sans` | 300 |
 | `open-sans-400.woff2` | `Open Sans` | 400 |
 | `open-sans-600.woff2` | `Open Sans` | 600 |
-| `open-sans-sc-600.woff2` | `Open Sans SC` | 600 |
-| `open-sans-sc-700.woff2` | `Open Sans SC` | 700 |
-| `open-sans-cd-300.woff2` | `Open Sans CD` | 300 |
-| `open-sans-cd-800.woff2` | `Open Sans CD` | 800 |
+| `open-sans-700.woff2` | `Open Sans` | 700 |
+| `open-sans-800.woff2` | `Open Sans` | 800 |
 
-`font-display: swap`. `preload` apenas em `cd-300` e `400` — as duas que o hero precisa no primeiro quadro.
+`font-display: swap`. `preload` apenas em `300` e `400`, as duas que o hero precisa no primeiro quadro.
+
+O subset inclui a faixa `U+2190-2193`: a seta `→` dos links e dos cartões é texto, e sem ela caía numa fonte de sistema.
 
 ---
 
@@ -118,7 +134,7 @@ O símbolo é um traço contínuo, desenhado à mão, do cólon. É o único ati
 
 ```
 ┌─────┐  Dr. Norton Luiz Nóbrega        ← Open Sans SemiBold 600
-│ ~~~ │  COLOPROCTOLOGISTA · CRM-PR 12.440   ← SemiCondensed 700, caixa alta, ouro
+│ ~~~ │  COLOPROCTOLOGISTA · CRM-PR 12.440   ← Bold 700, caixa alta, ouro
 └─────┘
   40px    respiro à esquerda: 16px
 ```
@@ -136,11 +152,14 @@ Arquivos em `assets/marca/` — símbolo em 32/96/180/240/512px, versão branca 
 
 A logo é uma linha só que não se interrompe. O site pega essa linguagem de traço e a estende: **um fio dourado contínuo percorre a página de cima a baixo.**
 
-- Desce pela calha esquerda, em **72px reservados** no desktop.
-- **Preenche conforme o scroll** — `stroke-dashoffset` atrelado à posição na página, não a um timer. Uma trilha a 10% mostra o caminho inteiro; o traço a 35% mostra o quanto já foi lido.
-- Isso o torna também um **indicador de progresso de leitura**: ele informa, não só decora.
-- Em "Como é uma consulta", um segundo segmento conecta os quatro passos — ali a sequência é real e a linha carrega essa informação.
-- Especificação: `stroke-width: 1.5`, `--ouro`, `stroke-linecap: round`, sem preenchimento, `vector-effect: non-scaling-stroke`.
+- Desce pela calha esquerda, em **72px reservados** no desktop, **começando abaixo do topo fixo**. Nascendo em `top: 0` os primeiros 77px ficavam atrás do cabeçalho: os primeiros 8% de rolagem não moviam nada visível.
+- **Preenche conforme o scroll**, com `stroke-dashoffset` atrelado à posição na página e não a um timer. A trilha mostra o caminho inteiro; o traço mostra o quanto já foi lido.
+- **O preenchimento é CSS, não JavaScript.** O `<path>` leva `pathLength="1"`, então o traço inteiro mede 1 e o preenchimento é o próprio `stroke-dashoffset` indo de 1 a 0. Um `@supports (animation-timeline: scroll())` prende isso à rolagem da raiz, e o navegador resolve no compositor: não passa pelo main thread e não tem como ficar um quadro atrás do conteúdo. O JS em `site.js` é só o caminho de fallback, para quem ainda não suporta.
+- Isso o torna também um **indicador de progresso de leitura**: ele informa, não só decora. Por isso ele é lido antes de ser bonito, e em agosto de 2026 ganhou peso para valer o nome: trilha `stroke-width: 2.5` em `--ouro` a 18%, traço `stroke-width: 5` em `--ouro-fundo`, opaco.
+- O traço leva dois halos: um claro de 2px e um dourado de 8px. O claro só aparece sobre as faixas ouro e escura, onde o `--ouro-fundo` teria pouco contraste; sobre a areia ele é invisível. Sem isso o fio sumia justamente nas duas faixas de maior peso da página.
+- Em "Como é uma consulta", a linha do tempo repete o gesto num trilho pontilhado próprio (ver §9). É CSS, não SVG: o trilho troca de eixo quando os passos empilham, coisa que um `viewBox` fixo não faz.
+- Especificação: `--ouro` / `--ouro-fundo`, `stroke-linecap: round`, sem preenchimento, `vector-effect: non-scaling-stroke`.
+- **Continua atrelado ao scroll com "reduzir movimento" ligado** — ver §8. É a única exceção do site àquela regra, e é deliberada.
 - **Não aparece abaixo de 900px.** No mobile o espaço é do conteúdo.
 
 Cada seção também recebe um traço curto de 24px em `--ouro` antes do eyebrow (ver §9) — o eco do fio no nível do bloco, sem acoplar o SVG à estrutura do HTML.
@@ -186,7 +205,9 @@ O acervo tem 10 fotos originais. Direção: luz natural, fundo claro, olhar na c
 
 **Não usar:** `IMG_5479` — mostra o cartão com a marca antiga "COLOPROCTO DOC". As quatro fotos de fundo preto destoam do site claro; ficam de reserva.
 
-**Tratamento:** sem filtro, sem duotone, sem sobreposição dourada. As fotos são quentes o suficiente. Corte generoso, sujeito descentralizado, muito ar em volta. `.webp` em 800/1200/1600px com `srcset`, `width`/`height` sempre declarados.
+**Tratamento:** sem filtro, sem duotone, sem sobreposição dourada. As fotos são quentes o suficiente. `.webp` em 800/1200/1600px com `srcset`, `width`/`height` sempre declarados.
+
+**Duas faixas usam a foto como plano de fundo, não como figura:** "O que costuma travar" (foto à direita, dissolvendo no dourado) e "O médico" (foto à esquerda, dissolvendo na areia). Ver `.secao-retrato` em §9. As demais fotos continuam sendo figuras normais, com corte livre.
 
 ---
 
@@ -220,7 +241,15 @@ Suave e discreto. O movimento confirma que algo chegou; não anuncia a si mesmo.
 }
 ```
 
-O fio aparece **inteiro desenhado**. O vídeo do hero não roda em autoplay — mostra o poster com botão de play.
+O vídeo do hero não roda em autoplay: mostra o poster com botão de play.
+
+**Exceção deliberada: o fio continua acompanhando o scroll.** Até agosto de 2026 ele aparecia inteiro desenhado e imóvel, e isso tirava o indicador de progresso justamente de quem liga "reduzir movimento" — quem mais depende de referência estável de onde está numa página longa. O fio não se move sozinho: ele reflete um gesto do próprio leitor, que é o critério que a própria especificação usa para separar animação de resposta. Na prática é uma regra a mais no bloco, porque o `animation-duration: .01ms !important` universal completava a linha no primeiro pixel de rolagem:
+
+```css
+@supports (animation-timeline: scroll()) {
+  .fio-traco { animation-duration: auto !important; }
+}
+```
 
 ---
 
@@ -232,9 +261,19 @@ O fio aparece **inteiro desenhado**. O vídeo do hero não roda em autoplay — 
 
 **Link de texto** — `--ouro-fundo`, sublinhado por `background-image` que cresce da esquerda no hover.
 
-**Eyebrow** — SemiCondensed 700, caixa alta, `.14em`, cor `--ouro-fundo`, precedido de um traço de 24px em `--ouro`.
+**Eyebrow** — Bold 700, caixa alta, `.14em`, cor `--ouro-fundo`, precedido de um traço de 24px em `--ouro`.
 
-**Cartão de sintoma / doença** — sem caixa. Hairline no topo, título em SemiCondensed 700, uma linha de corpo, seta discreta. Hover: hairline vira `--ouro` e o bloco sobe 2px.
+**Cartão de sintoma / doença** — sem caixa. Hairline no topo, título em Bold 700, uma linha de corpo e, no pé, a chamada `.cartao-mais` ("Entender este sintoma →"). A chamada não é enfeite: sem ela o cartão parecia texto solto e ninguém percebia que era clicável. Hover: hairline vira `--ouro`, o bloco sobe 2px e a seta avança 4px.
+
+**Dica de clique** (`.dica-clique`) — no cabeçalho de toda seção cujos itens são clicáveis: ícone de ponteiro em traço + uma linha em `--ouro-fundo` dizendo o que acontece ao clicar. Existe porque o cartão sem caixa e a lista com hairline são discretos demais para se anunciarem sozinhos.
+
+**Linha do tempo da consulta** (`.passos`) — selo numerado de 3,5rem montado sobre um trilho pontilhado, com o painel do passo pendurado abaixo. O selo tem anel de 6px na cor da faixa: é o anel que "corta" o trilho, dando a leitura de conta enfiada num fio. Horizontal em ≥900px, vertical abaixo disso. O trecho do trilho é desenhado pelo passo que **chega** nele no desktop (`::before`) e pelo passo que **sai** dele no mobile (`::after`) — sempre por cima de um painel já pintado, nunca por baixo do próximo, que é o que evita o trilho sumir sob o fundo do painel vizinho.
+
+**Cartão de credencial** (`.cred`) — ícone em traço, ano em `--ouro-fundo`, título em Bold 700, instituição em corpo pequeno. Substituiu a lista de bullets do currículo, que era longa e não se lia.
+
+**Retrato de fundo** (`.secao-retrato` + `.retrato-dir` / `.retrato-esq`) — a foto ocupa um dos lados da faixa e se dissolve para dentro dela. O que faz a dissolução é uma **máscara na imagem**, não uma sobreposição de cor por cima: assim não existe emenda a acertar entre a foto e o fundo, seja ele o gradiente dourado ou a areia da página, e mudar o fundo não exige mexer na foto. A rampa da máscara termina antes da coluna de texto — nenhuma letra cai sobre pixel de foto. Empilhado, a foto sai do fundo e vira um bloco no topo da faixa, sangrando de borda a borda e dissolvendo para baixo, com o texto inteiro embaixo.
+
+**Marca d'água** (`.marca-dagua`) — o símbolo em corpo grande, `height: 110%` da seção, opacidade 7%, encostado na borda direita. O recuo é `transform: translate(35%, -50%)`, proporcional à **própria marca** e não à seção: assim o enquadramento é o mesmo numa faixa curta e numa faixa longa. Decorativa de verdade — `aria-hidden`, `alt` vazio, `pointer-events: none`. Versão ouro sobre fundo claro, versão branca sobre `--tinta`.
 
 **Foco visível** — `outline: 2px solid var(--ouro-fundo); outline-offset: 3px`. Nunca removido.
 
@@ -242,7 +281,11 @@ O fio aparece **inteiro desenhado**. O vídeo do hero não roda em autoplay — 
 
 ## 10. Voz
 
-Segunda pessoa, frases curtas, verbo no presente.
+**Quem fala é o próprio médico.** O site inteiro está em primeira pessoa: "eu cuido disso", "explico o que você tem", "a técnica eu escolho junto com você". Nunca "o Dr. Norton faz", nunca "o médico avalia". O nome dele aparece como assinatura (rodapé, `cite` da citação, aviso do artigo), não como sujeito da frase.
+
+**Sem travessão.** Nenhum `—` no texto publicado. Onde havia travessão entrou vírgula, dois-pontos ou uma frase nova. Vale para títulos, `<title>`, `og:title` e `aria-label` também. O separador da marca é `·`.
+
+Segunda pessoa para o leitor, frases curtas, verbo no presente.
 
 - **Nomeie o sintoma.** "Sangramento ao evacuar", não "desconforto na região".
 - **Nada de promessa.** "Quase sempre tem solução" — nunca "cura garantida". Além de ser verdade, é exigência do CFM.
@@ -256,7 +299,7 @@ Segunda pessoa, frases curtas, verbo no presente.
 >
 > # Ninguém deveria conviver com isso **em silêncio**.
 >
-> Sangramento, dor ao evacuar, um nódulo que apareceu. São queixas comuns, têm nome e quase sempre têm solução. Há mais de 30 anos o Dr. Norton Nóbrega cuida disso — com privacidade absoluta e sem constrangimento.
+> Sangramento, dor ao evacuar, um nódulo que apareceu. São queixas comuns, têm nome e quase sempre têm solução. Há mais de 30 anos eu cuido disso, com privacidade absoluta e sem constrangimento.
 
 ---
 
@@ -284,11 +327,16 @@ Segunda pessoa, frases curtas, verbo no presente.
 ## 12. Checklist antes de publicar
 
 - [ ] Nenhum texto em `#C88F4A`
-- [ ] O fio se desenha no scroll e some abaixo de 900px
+- [ ] Nenhum travessão (`—`) no texto publicado
+- [ ] Nenhuma citação do médico em terceira pessoa
+- [ ] Nenhuma fonte Condensed ou SemiCondensed carregada
+- [ ] O fio acompanha o scroll nos dois caminhos (nativo e fallback JS) **e com "reduzir movimento" ligado**
+- [ ] O fio some abaixo de 900px
 - [ ] Sem scroll horizontal em 375 / 768 / 1024 / 1440 / 1920
 - [ ] Percurso completo por teclado, foco visível em cada parada
-- [ ] "Reduzir movimento" ligado: fio inteiro, nada anima
+- [ ] "Reduzir movimento" ligado: nada anima, mas o fio continua marcando a posição
 - [ ] JavaScript desligado: conteúdo e WhatsApp funcionando
 - [ ] CRM e RQE em todas as páginas
 - [ ] Toda imagem com `width`/`height` e `alt`
 - [ ] Nenhuma marca de terceiro visível nas fotos publicadas
+- [ ] Contraste **medido no pixel renderizado** atrás do texto das duas faixas com retrato de fundo, não estimado pela cor do CSS
