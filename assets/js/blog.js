@@ -41,6 +41,14 @@
 
     if (vazio) vazio.hidden = visiveis > 0;
 
+    // Depois de um clique, quem reaparece já entra visível: esperar o
+    // observador de rolagem faria a lista piscar em branco a cada filtro.
+    if (atualizarUrl) {
+      cartoes.forEach(function (c) {
+        if (!c.hidden) c.classList.add("surge-visivel");
+      });
+    }
+
     if (atualizarUrl) {
       var url = new URL(window.location.href);
       url.searchParams.delete("categoria"); // o alias da home não fica acumulando

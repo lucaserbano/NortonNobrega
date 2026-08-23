@@ -260,7 +260,11 @@
 
 <main id="conteudo" class="envoltorio">
 
-<section class="secao secao-primeira">
+<section class="secao secao-escura capa capa-blog">
+  <!-- Marca d'água em branco, encostada na borda direita. Decorativa. -->
+  <img class="marca-dagua" src="../assets/marca/marca-dagua-branca.webp" alt="" aria-hidden="true"
+       width="1200" height="1355" decoding="async">
+
   <div class="contem">
     <div class="cabeca">
       <p class="eyebrow surge">Blog</p>
@@ -269,19 +273,26 @@
         Doenças, exames e prevenção em coloproctologia, explicados sem jargão.
         Se você reconhecer o seu caso em algum destes textos, já é motivo para consultar.
       </p>
-      <p class="dica-clique surge">
+    </div>
+
+    <div class="barra-filtros surge">
+      <div class="filtros" role="group" aria-label="Filtrar artigos por assunto">
+        <button class="filtro filtro-ativo" type="button" data-grupo="todos">Todos <span class="filtro-n">29</span></button>
+        <button class="filtro" type="button" data-grupo="doencas">Doenças <span class="filtro-n">17</span></button>
+        <button class="filtro" type="button" data-grupo="exames">Exames <span class="filtro-n">5</span></button>
+        <button class="filtro" type="button" data-grupo="dicas">Dicas <span class="filtro-n">7</span></button>
+      </div>
+
+      <p class="dica-clique">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.2 17.5 12l-4.6.9 2.5 5.3-2.2 1-2.5-5.3-3.7 3z"/></svg>
         Clique em um artigo para ler na íntegra
       </p>
     </div>
+  </div>
+</section>
 
-    <div class="filtros" role="group" aria-label="Filtrar artigos por assunto">
-      <button class="filtro filtro-ativo" type="button" data-grupo="todos">Todos <span class="filtro-n">29</span></button>
-      <button class="filtro" type="button" data-grupo="doencas">Doenças <span class="filtro-n">17</span></button>
-      <button class="filtro" type="button" data-grupo="exames">Exames <span class="filtro-n">5</span></button>
-      <button class="filtro" type="button" data-grupo="dicas">Dicas <span class="filtro-n">7</span></button>
-    </div>
-
+<section class="secao secao-lista">
+  <div class="contem">
     <p class="filtro-vazio" hidden>Nenhum artigo neste assunto ainda.</p>
 
     <div class="grade-3" id="lista">

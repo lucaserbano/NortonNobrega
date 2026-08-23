@@ -170,6 +170,7 @@
   .secao-escura { background: var(--tinta); color: rgba(251, 251, 251, .86); }
   .secao-nevoa  { background: var(--nevoa); }
 
+  .secao-escura h1,
   .secao-escura h2,
   .secao-escura h3 { color: var(--areia); }
   /* strong tem cor própria (tinta) e sumia dentro da faixa escura */
@@ -178,6 +179,7 @@
 
   /* Faixa em ouro escuro. #FBFBFB sobre #8F5C0B = 5,48:1. */
   .secao-ouro { background: var(--ouro-fundo); color: var(--areia); }
+  .secao-ouro h1,
   .secao-ouro h2,
   .secao-ouro h3,
   .secao-ouro strong,

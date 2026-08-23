@@ -35,6 +35,12 @@ const zap = (msg) => `https://wa.me/${ZAP}?text=${encodeURIComponent(msg)}`;
 
 const ICONE_ZAP = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97.99-3.62-.23-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8 2.62 0 5.08 1.03 6.93 2.88a9.74 9.74 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.49A11.7 11.7 0 0 0 12.05 0C5.6 0 .35 5.25.34 11.7c0 2.06.54 4.08 1.56 5.86L.24 24l6.59-1.73a11.7 11.7 0 0 0 5.21 1.24h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.21-6.07-3.43-8.28"/></svg>`;
 
+/* A marca d'água das faixas escuras do blog. Decorativa: fora do fluxo e
+   fora do alcance do leitor de tela. */
+const MARCA_DAGUA = `    <!-- Marca d'água em branco, encostada na borda direita. Decorativa. -->
+    <img class="marca-dagua" src="../assets/marca/marca-dagua-branca.webp" alt="" aria-hidden="true"
+         width="1200" height="1355" decoding="async">`;
+
 /* ---------------------------- cabeça ---------------------------- */
 
 function cabeca({ titulo, descricao, url, extra = "" }) {
@@ -198,9 +204,13 @@ ${JSON.stringify({
 </script>
 `;
 
+  // Cada trecho é um <section>: é ele que forma a faixa horizontal com o
+  // subtítulo na calha da esquerda e o texto ao lado.
   const secoes = post.corpo.map((s) => `
-      <h2>${esc(s.h)}</h2>
-${s.p.map((t) => `      <p>${esc(t)}</p>`).join("\n")}`).join("\n");
+      <section>
+        <h2>${esc(s.h)}</h2>
+${s.p.map((t) => `        <p>${esc(t)}</p>`).join("\n")}
+      </section>`).join("\n");
 
   // relacionados: mesmo grupo, exceto o próprio
   const relacionados = todos
@@ -229,21 +239,25 @@ ${relacionados.map((r) => `      <a class="cartao surge surge-cartao" href="${r.
 <main id="conteudo" class="envoltorio">
 
 <article class="artigo">
-  <div class="contem">
-    <nav class="migalhas" aria-label="Você está em">
-      <a href="../">Início</a>
-      <span aria-hidden="true">/</span>
-      <a href="./">Blog</a>
-      <span aria-hidden="true">/</span>
-      <span aria-current="page">${esc(post.titulo)}</span>
-    </nav>
+  <header class="secao secao-escura capa capa-artigo">
+${MARCA_DAGUA}
 
-    <header class="artigo-topo">
-      <p class="eyebrow">${esc(post.categoria)}</p>
+    <div class="contem">
+      <nav class="migalhas" aria-label="Você está em">
+        <a href="../">Início</a>
+        <span aria-hidden="true">/</span>
+        <a href="./">Blog</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">${esc(post.titulo)}</span>
+      </nav>
+
+      <p class="artigo-tag">${esc(post.categoria)}</p>
       <h1>${esc(post.titulo)}</h1>
       <p class="artigo-resumo">${esc(post.resumo)}</p>
-    </header>
+    </div>
+  </header>
 
+  <div class="contem">
     <div class="artigo-corpo">${secoes}
     </div>
 
@@ -277,8 +291,8 @@ ${blocoRelacionados}
 function paginaIndice(todos) {
   const grupos = ["doencas", "exames", "dicas"];
 
-  const filtros = `      <button class="filtro filtro-ativo" type="button" data-grupo="todos">Todos <span class="filtro-n">${todos.length}</span></button>
-${grupos.map((g) => `      <button class="filtro" type="button" data-grupo="${g}">${esc(GRUPOS[g])} <span class="filtro-n">${todos.filter((p) => p.grupo === g).length}</span></button>`).join("\n")}`;
+  const filtros = `        <button class="filtro filtro-ativo" type="button" data-grupo="todos">Todos <span class="filtro-n">${todos.length}</span></button>
+${grupos.map((g) => `        <button class="filtro" type="button" data-grupo="${g}">${esc(GRUPOS[g])} <span class="filtro-n">${todos.filter((p) => p.grupo === g).length}</span></button>`).join("\n")}`;
 
   const cartoes = todos.map((p) => `      <a class="cartao surge surge-cartao" href="${p.slug}.html" data-grupo="${p.grupo}">
         <span class="cartao-marca">${esc(p.categoria)}</span>
@@ -312,7 +326,11 @@ ${JSON.stringify({
   }) + `
 <main id="conteudo" class="envoltorio">
 
-<section class="secao secao-primeira">
+<section class="secao secao-escura capa capa-blog">
+  <!-- Marca d'água em branco, encostada na borda direita. Decorativa. -->
+  <img class="marca-dagua" src="../assets/marca/marca-dagua-branca.webp" alt="" aria-hidden="true"
+       width="1200" height="1355" decoding="async">
+
   <div class="contem">
     <div class="cabeca">
       <p class="eyebrow surge">Blog</p>
@@ -321,16 +339,23 @@ ${JSON.stringify({
         Doenças, exames e prevenção em coloproctologia, explicados sem jargão.
         Se você reconhecer o seu caso em algum destes textos, já é motivo para consultar.
       </p>
-      <p class="dica-clique surge">
+    </div>
+
+    <div class="barra-filtros surge">
+      <div class="filtros" role="group" aria-label="Filtrar artigos por assunto">
+${filtros}
+      </div>
+
+      <p class="dica-clique">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.2 17.5 12l-4.6.9 2.5 5.3-2.2 1-2.5-5.3-3.7 3z"/></svg>
         Clique em um artigo para ler na íntegra
       </p>
     </div>
+  </div>
+</section>
 
-    <div class="filtros" role="group" aria-label="Filtrar artigos por assunto">
-${filtros}
-    </div>
-
+<section class="secao secao-lista">
+  <div class="contem">
     <p class="filtro-vazio" hidden>Nenhum artigo neste assunto ainda.</p>
 
     <div class="grade-3" id="lista">

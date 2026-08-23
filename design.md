@@ -54,6 +54,7 @@ Todos calculados, não estimados:
 | `--ouro` sobre `--tinta` | 4,91:1 | AA — o fio funciona sobre fundo escuro |
 | `--grafite` sobre `--nevoa` | 8,86:1 | AAA |
 | ~~`--ouro` sobre `--areia`~~ | 2,71:1 | **reprova — proibido para texto** |
+| ~~`--ouro` sobre tinta com película branca a 6%~~ | 4,12:1 | **reprova — ver as pílulas de filtro em §9** |
 
 ### O gradiente dourado da faixa "O que costuma travar"
 
@@ -296,6 +297,14 @@ Saíram de "Como é uma consulta", "O que costuma travar", "O médico", "Agendam
 **Retrato de fundo** (`.secao-retrato` + `.retrato-dir` / `.retrato-esq`) — a foto ocupa um dos lados da faixa e se dissolve para dentro dela. O que faz a dissolução é uma **máscara na imagem**, não uma sobreposição de cor por cima: assim não existe emenda a acertar entre a foto e o fundo, seja ele o gradiente dourado ou a areia da página, e mudar o fundo não exige mexer na foto. A rampa da máscara termina antes da coluna de texto — nenhuma letra cai sobre pixel de foto. Empilhado, a foto sai do fundo e vira um bloco no topo da faixa, sangrando de borda a borda e dissolvendo para baixo, com o texto inteiro embaixo.
 
 **Marca d'água** (`.marca-dagua`) — o símbolo em corpo grande, `height: 110%` da seção, opacidade 7%, encostado na borda direita. O recuo é `transform: translate(35%, -50%)`, proporcional à **própria marca** e não à seção: assim o enquadramento é o mesmo numa faixa curta e numa faixa longa. Decorativa de verdade — `aria-hidden`, `alt` vazio, `pointer-events: none`. Versão ouro sobre fundo claro, versão branca sobre `--tinta`.
+
+**Faixa de capa do blog** (`.capa`, sobre `.secao-escura`) — o blog abre em tinta, do cabeçalho até o começo da lista, e volta para a areia dali em diante. É a única área do site que não vende consulta: quem chega ali está lendo, e a troca de fundo diz isso antes de qualquer texto. No índice a faixa carrega o título, a intro e a barra de filtros; na página de artigo, as migalhas, o assunto, o `<h1>` e o resumo. Marca d'água branca nas duas.
+
+**Pílulas de filtro** (`.filtro`) — só contorno em repouso, preenchimento em `--areia` quando ativa. **Sem película de fundo**: `rgba(251,251,251,.06)` levava o pixel renderizado a `#393939`, e o ouro do contador caía de 4,91:1 para **4,12:1**. O hover acende a borda, não o fundo, pela mesma razão. A borda em repouso é `rgba(251,251,251,.38)`, que é o mínimo para render os 3:1 de contorno sobre a tinta. Esse foi mais um caso em que a cor declarada passa e o pixel reprova: medir renderizado, sempre.
+
+**Assunto do artigo** (`.artigo-tag`) — pílula de contorno em `--ouro`, e não outro eyebrow. Logo acima dela já corre a trilha de migalhas, que é Bold 700 em caixa alta: dois versaletes empilhados viravam ruído e nenhum dos dois se lia como o principal. A pílula muda de forma, não só de cor.
+
+**Corpo do artigo em calha** (`.artigo-corpo > section`) — os textos do blog têm de 40 a 130 palavras. Num bloco único de 68ch, metade da página ficava vazia à direita e o artigo parecia inacabado. Cada trecho virou uma faixa horizontal: `<h2>` numa calha de 16rem à esquerda, parágrafos ao lado, régua entre as faixas. A **composição** ocupa a largura inteira; a **linha de leitura** continua presa em 66ch. Abaixo de 900px empilha, com o título acima do texto. O CTA do fim do artigo entra na mesma grade, para o convite cair na coluna do texto e não parecer um bloco avulso colado no pé.
 
 **Foco visível** — `outline: 2px solid var(--ouro-fundo); outline-offset: 3px`. Nunca removido.
 

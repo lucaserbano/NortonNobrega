@@ -5,17 +5,41 @@
 
 @layer secoes {
 
-  /* A primeira seção depois do topo não precisa do respiro cheio. */
-  .secao-primeira { padding-top: clamp(2.5rem, 6vw, 5rem); }
+  /* ======================= FAIXA DE CAPA =======================
+     O blog abre numa faixa escura, do cabeçalho até o começo da lista.
+     Serve a dois propósitos: separa a área de leitura do resto do site
+     (é a única parte que não vende consulta) e dá um lugar de descanso
+     para os filtros, que ali ficam ancorados em vez de flutuar na página. */
 
-  /* ---------------------- filtros do índice ---------------------- */
+  .capa {
+    padding-block: clamp(2.75rem, 6vw, 5rem) clamp(2.25rem, 4.5vw, 3.5rem);
+  }
+  .capa .cabeca { margin-bottom: 0; }
+  .capa h1 { max-width: 22ch; }
+  .capa .cabeca-intro { max-width: 58ch; }
+
+  /* ======================= ÍNDICE =======================
+     Barra de filtros: pílulas à esquerda, aviso de clique à direita.
+     A régua de cima amarra a barra à faixa em vez de deixá-la solta. */
+
+  .barra-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-2) var(--e-3);
+    margin-top: clamp(2rem, 4.5vw, 3.25rem);
+    padding-top: var(--e-3);
+    border-top: 1px solid rgba(200, 143, 74, .3);
+  }
+  .barra-filtros .dica-clique { margin-top: 0; }
+
   /* Sem JavaScript não há o que filtrar: a lista já vem completa. */
   .filtros { display: none; }
   .js .filtros {
     display: flex;
     flex-wrap: wrap;
     gap: .625rem;
-    margin-bottom: var(--e-5);
   }
   .filtro {
     display: inline-flex;
@@ -23,10 +47,14 @@
     gap: .5rem;
     min-height: 44px;
     padding: .5rem 1.125rem;
+    /* Sem preenchimento: uma película de branco a 6% já levava o fundo a
+       #393939, e o ouro do contador caía de 4,91:1 para 4,12:1. A pílula em
+       repouso é só contorno; .38 de branco é o mínimo que rende os 3:1 de
+       borda sobre a tinta. */
     background: transparent;
-    border: 1px solid var(--linha);
+    border: 1px solid rgba(251, 251, 251, .38);
     border-radius: 999px;
-    color: var(--grafite);
+    color: var(--areia);
     font-size: var(--t-peq);
     font-weight: 600;
     cursor: pointer;
@@ -34,82 +62,151 @@
                 border-color var(--dur-media) var(--ease),
                 color var(--dur-media) var(--ease);
   }
-  .filtro:hover { border-color: var(--ouro); color: var(--tinta); }
-  .filtro-ativo { background: var(--tinta); border-color: var(--tinta); color: var(--areia); }
-  .filtro-ativo:hover { color: var(--areia); border-color: var(--tinta); }
+  /* O hover acende a borda, não o fundo: qualquer película aqui derrubaria
+     o contraste do contador de novo. */
+  .filtro:hover { border-color: var(--ouro); }
+  .filtro-ativo,
+  .filtro-ativo:hover { background: var(--areia); border-color: var(--areia); color: var(--tinta); }
 
   /* Sem opacity: texto pequeno precisa de cor real que passe em contraste.
-     ouro-fundo sobre areia = 5,48:1; ouro sobre tinta = 4,91:1. */
+     ouro sobre tinta = 4,91:1; ouro-fundo sobre areia = 5,48:1. */
   .filtro-n {
     font-family: var(--f-corpo);
     font-weight: 700;
     font-size: .6875rem;
     letter-spacing: .06em;
-    color: var(--ouro-fundo);
+    color: var(--ouro);
   }
-  .filtro-ativo .filtro-n { color: var(--ouro); }
+  .filtro-ativo .filtro-n { color: var(--ouro-fundo); }
 
-  .filtro-vazio { margin-bottom: var(--e-5); font-size: var(--t-peq); }
+  /* A lista fica na cor da página, logo abaixo da faixa. */
+  .secao-lista { padding-block: clamp(2.5rem, 5.5vw, 4.5rem) var(--e-secao); }
 
-  /* ---------------------- página de artigo ---------------------- */
-  .artigo { padding-block: clamp(2rem, 5vw, 3.5rem) var(--e-secao); }
+  .filtro-vazio { margin-bottom: var(--e-4); font-size: var(--t-peq); }
+
+  /* Um cartão escondido pelo filtro precisa vencer o `display: block` da
+     camada de componentes — a regra `[hidden]` do navegador perde para
+     qualquer declaração de autor, e sem isto o filtro não esconde nada. */
+  #lista .cartao[hidden] { display: none; }
+
+  /* ======================= PÁGINA DE ARTIGO ======================= */
+
+  .artigo { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .capa-artigo h1 { max-width: 20ch; }
 
   .migalhas {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: .5rem;
-    margin-bottom: var(--e-5);
+    margin-bottom: var(--e-2);
     font-family: var(--f-corpo);
     font-weight: 700;
     font-size: var(--t-eyebrow);
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--grafite);
+    color: rgba(251, 251, 251, .68);
   }
-  .migalhas a { color: var(--ouro-fundo); transition: opacity var(--dur-media) var(--ease); }
+  .migalhas a { color: var(--areia); transition: opacity var(--dur-media) var(--ease); }
   .migalhas a:hover { opacity: .7; }
   .migalhas span[aria-hidden] { color: var(--ouro); }
-  .migalhas [aria-current] { color: var(--grafite); font-weight: 600; }
+  .migalhas [aria-current] { font-weight: 600; }
 
-  .artigo-topo { margin-bottom: var(--e-5); }
-  .artigo-topo h1 {
-    font-size: clamp(2.25rem, 5.5vw, 4rem);
-    max-width: 18ch;
+  /* O assunto do artigo vira pílula, e não outra linha de versalete: a trilha
+     de migalhas logo acima já ocupa esse registro, e duas linhas iguais em
+     caixa alta empilhadas viram ruído. */
+  .artigo-tag {
+    display: inline-flex;
+    align-items: center;
     margin-bottom: var(--e-3);
-  }
-  .artigo-resumo {
-    font-size: var(--t-lead);
-    line-height: 1.6;
-    max-width: 52ch;
-    color: var(--tinta);
+    padding: .4rem 1.0625rem;
+    border: 1px solid rgba(200, 143, 74, .5);
+    border-radius: 999px;
+    font-family: var(--f-corpo);
+    font-weight: 700;
+    font-size: var(--t-eyebrow);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ouro);
   }
 
-  .artigo-corpo { max-width: var(--medida); }
-  .artigo-corpo h2 {
-    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-    margin-top: var(--e-5);
-    margin-bottom: var(--e-2);
+  /* A entrada do texto, ainda dentro da faixa: quem chega pela busca lê o
+     resumo antes de decidir se desce. */
+  .artigo-resumo {
+    margin-top: var(--e-3);
+    font-size: var(--t-lead);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 56ch;
+    color: rgba(251, 251, 251, .92);
   }
-  .artigo-corpo h2:first-child { margin-top: 0; }
+
+  /* ---------------------- corpo em duas colunas ----------------------
+     Os textos são curtos: um bloco único de 68ch deixaria metade da página
+     vazia à direita. Cada trecho vira uma faixa horizontal com o título na
+     calha da esquerda e o texto ao lado — a composição ocupa a largura
+     inteira sem que a linha de leitura passe de 66ch. */
+
+  .artigo-corpo { margin-top: clamp(2.25rem, 5vw, 3.5rem); }
+
+  .artigo-corpo > section {
+    padding-block: clamp(1.5rem, 3vw, 2.25rem);
+    border-top: 1px solid var(--linha-neutra);
+  }
+  .artigo-corpo > section:first-child { border-top-color: var(--linha-forte); }
+
+  .artigo-corpo h2 {
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    margin-bottom: var(--e-2);
+    text-wrap: balance;
+  }
+  .artigo-corpo p { max-width: 66ch; }
   .artigo-corpo p + p { margin-top: var(--e-2); }
 
-  /* ---------------------- CTA do fim do artigo ---------------------- */
-  .artigo-cta {
-    max-width: var(--medida);
-    margin-top: var(--e-6);
-    padding-top: var(--e-4);
-    border-top: 1px solid var(--linha);
+  @media (min-width: 900px) {
+    .artigo-corpo > section {
+      display: grid;
+      grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+      column-gap: var(--e-4);
+      row-gap: var(--e-2);
+    }
+    .artigo-corpo > section > h2 { grid-column: 1; grid-row: 1; margin-bottom: 0; }
+    .artigo-corpo > section > :not(h2) { grid-column: 2; }
+    .artigo-corpo > section > p + p { margin-top: 0; }
   }
-  .artigo-cta h2 { font-size: var(--t-h2); margin-bottom: var(--e-2); }
-  .artigo-cta p  { margin-bottom: var(--e-3); max-width: 52ch; }
+
+  /* ---------------------- CTA do fim do artigo ----------------------
+     Mesma calha do corpo, para o convite cair na coluna do texto e não
+     parecer um bloco avulso colado no fim. */
+  .artigo-cta {
+    margin-top: clamp(.75rem, 2vw, 1.5rem);
+    padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
+    border-top: 1px solid var(--linha-forte);
+  }
+  .artigo-cta h2 { font-size: clamp(1.3rem, 2vw, 1.65rem); margin-bottom: var(--e-2); }
+  .artigo-cta p  { margin-bottom: var(--e-3); max-width: 58ch; }
+
+  @media (min-width: 900px) {
+    .artigo-cta {
+      display: grid;
+      grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+      column-gap: var(--e-4);
+    }
+    .artigo-cta > h2 { grid-column: 1; grid-row: 1; margin-bottom: 0; }
+    .artigo-cta > :not(h2) { grid-column: 2; }
+    /* o botão é inline-flex, mas como item de grade esticaria a coluna inteira */
+    .artigo-cta > .btn { justify-self: start; }
+  }
 
   .artigo-aviso {
-    max-width: var(--medida);
-    margin-top: var(--e-5);
+    margin-top: var(--e-4);
     padding-top: var(--e-3);
     border-top: 1px solid var(--linha-neutra);
     font-size: .8125rem;
     line-height: 1.6;
   }
+
+  /* "Leia também" já vem com o respiro da seção; o artigo não precisa
+     repetir o dele em cima. */
+  .artigo + .secao { padding-top: 0; }
 }
