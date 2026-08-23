@@ -62,9 +62,12 @@ function cabeca({ titulo, descricao, url, extra = "" }) {
 <meta property="og:description" content="${esc(descricao)}">
 <meta property="og:url" content="${SITE}${url}">
 <meta property="og:image" content="${SITE}/assets/marca/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Norton Luiz Nóbrega, coloproctologista em Curitiba, no consultório.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/marca/og.jpg">
 
 <link rel="icon" href="../assets/marca/favicon-32.png" sizes="32x32">
 <link rel="icon" href="../assets/marca/favicon-16.png" sizes="16x16">
@@ -418,6 +421,10 @@ writeFileSync(join(BLOG, "posts.json"), JSON.stringify(
   })), null, 2) + "\n");
 
 // sitemap
+// `lastmod` é a data desta geração: como o script reescreve todas as páginas
+// de uma vez, é a data em que o HTML publicado passou a ser o que é. É o
+// único campo dos três que o Google realmente usa.
+const hoje = new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: `${SITE}/`, pri: "1.0" },
   { loc: `${SITE}/blog/`, pri: "0.8" },
@@ -426,7 +433,7 @@ const urls = [
 writeFileSync(join(RAIZ, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${u.loc}</loc><changefreq>monthly</changefreq><priority>${u.pri}</priority></url>`).join("\n")}
+${urls.map((u) => `  <url><loc>${u.loc}</loc><lastmod>${hoje}</lastmod><changefreq>monthly</changefreq><priority>${u.pri}</priority></url>`).join("\n")}
 </urlset>
 `);
 
