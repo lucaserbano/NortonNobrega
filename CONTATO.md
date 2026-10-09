@@ -9,7 +9,7 @@ pendente está listado abaixo, na ordem em que importa.
 
 | Dado | Valor no site |
 |---|---|
-| WhatsApp | `5541998068000`, exibido como **(41) 99806-8000**. Está nos 33 arquivos e no JSON-LD |
+| WhatsApp | `5541988068000`, exibido como **(41) 98806-8000**. Está nos 33 arquivos e no JSON-LD |
 | Endereço | Coloprocto DOC - DOC Batel, Avenida Visconde de Guarapuava, 4628, salas 709 e 710, Batel, Curitiba/PR |
 | Atendimento | Segunda a sexta, das 8h às 12h e das 14h às 18h |
 | Mapa | Query já apontada para o endereço real, com zoom 17. Exibido a cores |
